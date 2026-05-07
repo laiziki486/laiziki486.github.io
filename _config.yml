@@ -1,0 +1,36 @@
+# 网站基本信息
+title: 我的博客
+description: 欢迎来到我的个人博客
+author: laiziki486
+
+# GitHub Pages 设置
+baseurl: ""
+url: "https://laiziki486.github.io"
+
+# 主题设置（使用 GitHub Pages 支持的主题）
+theme: minima
+
+# 社交媒体链接（可选）
+# github_username: laiziki486
+# twitter_username: your_username
+
+# 构建设置
+markdown: kramdown
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# 排除文件
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+
+# 分页设置（可选）
+# paginate: 5
+# paginate_path: "/page:num/"
+
+# 时区和语言
+timezone: Asia/Shanghai
+lang: zh-CN
