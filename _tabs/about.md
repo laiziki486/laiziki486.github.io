@@ -26,7 +26,7 @@ order: 4
 ### 📫 联系我
 
 - GitHub: [@laiziki486](https://github.com/laiziki486)
-- Email: 你可以在这里添加你的邮箱
+- Email: 暂无
 
 ---
 

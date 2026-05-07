@@ -1,0 +1,24 @@
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <!-- 原有的页脚内容 -->
+      <p class="footer-text">
+        © {{ 'now' | date: '%Y' }} {{ site.title }}
+      </p>
+
+      <!-- 访客统计 -->
+      <div class="busuanzi-stats">
+        <span id="busuanzi_container_site_pv" style="display:none">
+          <i class="fas fa-eye"></i> 总访问量 <span id="busuanzi_value_site_pv"></span> 次
+        </span>
+        <span class="separator">|</span>
+        <span id="busuanzi_container_site_uv" style="display:none">
+          <i class="fas fa-user"></i> 访客数 <span id="busuanzi_value_site_uv"></span> 人
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 加载不蒜子脚本 -->
+  {% include busuanzi.html %}
+</footer>
