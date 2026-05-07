@@ -120,9 +120,9 @@ comments:
   # Giscus options › https://giscus.app
   giscus:
     repo: laiziki486/laiziki486.github.io
-    repo_id: # 请访问 https://giscus.app 获取，详见 GISCUS_SETUP.md
+    repo_id: R_kgDOId0mVg
     category: Announcements
-    category_id: # 请访问 https://giscus.app 获取，详见 GISCUS_SETUP.md
+    category_id: DIC_kwDOId0mVs4C8huf
     mapping: pathname
     strict: 0
     input_position: top
