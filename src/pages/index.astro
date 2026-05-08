@@ -38,6 +38,44 @@ import BaseHead from '../components/BaseHead.astro';
 				z-index: 0;
 			}
 
+			/* 下坠粒子效果 */
+			.falling-particles {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				pointer-events: none;
+				z-index: 1;
+				overflow: hidden;
+			}
+
+			.particle {
+				position: absolute;
+				width: 2px;
+				height: 2px;
+				background: rgba(135, 206, 250, 0.6);
+				border-radius: 50%;
+				animation: fall linear infinite;
+			}
+
+			@keyframes fall {
+				0% {
+					transform: translateY(-10px);
+					opacity: 0;
+				}
+				10% {
+					opacity: 1;
+				}
+				90% {
+					opacity: 1;
+				}
+				100% {
+					transform: translateY(100vh);
+					opacity: 0;
+				}
+			}
+
 			/* 破碎文字效果 */
 			.glitch-text {
 				position: relative;
@@ -128,13 +166,13 @@ import BaseHead from '../components/BaseHead.astro';
 				animation: flicker 4s infinite;
 			}
 
-			/* 3D旋转文档柜 - 20度俯视角 */
+			/* 3D旋转文档柜 - 10度俯视角 */
 			.carousel-container {
 				width: 100%;
 				height: 550px;
 				position: relative;
 				transform-style: preserve-3d;
-				transform: rotateX(20deg);
+				transform: rotateX(10deg);
 			}
 
 			.carousel {
@@ -143,10 +181,6 @@ import BaseHead from '../components/BaseHead.astro';
 				position: absolute;
 				transform-style: preserve-3d;
 				animation: rotate 40s infinite linear;
-			}
-
-			.carousel:hover {
-				animation-play-state: paused;
 			}
 
 			.document {
@@ -163,15 +197,14 @@ import BaseHead from '../components/BaseHead.astro';
 				border-radius: 15px;
 				padding: 2rem;
 				cursor: pointer;
-				transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 				transform-style: preserve-3d;
 				box-shadow: 0 15px 60px rgba(0, 0, 0, 0.6),
 				            inset 0 0 20px rgba(135, 206, 250, 0.1);
-				/* 破碎边框效果 */
 				clip-path: polygon(
 					0% 2%, 2% 0%, 98% 0%, 100% 3%,
 					100% 97%, 98% 100%, 2% 100%, 0% 98%
 				);
+				transition: background 0.3s, box-shadow 0.3s, border-color 0.3s;
 			}
 
 			.document::before {
@@ -196,13 +229,12 @@ import BaseHead from '../components/BaseHead.astro';
 			}
 
 			.document:hover {
-				transform: translateZ(150px) scale(1.15) !important;
 				background: hsla(var(--primary-hue), 40%, 30%, calc(var(--opacity) + 0.2));
 				box-shadow: 0 25px 100px rgba(0, 0, 0, 0.8),
 				            0 0 50px rgba(135, 206, 250, 0.5),
 				            inset 0 0 30px rgba(135, 206, 250, 0.2);
 				border-color: rgba(135, 206, 250, 0.6);
-				z-index: 100 !important;
+				z-index: 100;
 			}
 
 			.document:hover::before {
@@ -311,6 +343,10 @@ import BaseHead from '../components/BaseHead.astro';
 			.settings-btn {
 				bottom: 2rem;
 				right: 2rem;
+			}
+
+			.settings-btn:hover {
+				transform: scale(1.15) rotate(90deg);
 			}
 
 			.settings-panel {
@@ -424,6 +460,7 @@ import BaseHead from '../components/BaseHead.astro';
 	</head>
 	<body>
 		<div class="overlay"></div>
+		<div class="falling-particles" id="fallingParticles"></div>
 
 		<div class="container">
 			<header class="header">
@@ -433,7 +470,7 @@ import BaseHead from '../components/BaseHead.astro';
 			</header>
 
 			<div class="carousel-container">
-				<div class="carousel">
+				<div class="carousel" id="carousel">
 					<a href="/blog/fragment-1" class="document">
 						<h2 class="doc-title glitch-text" data-text="玻璃上的裂痕">玻璃上的裂痕</h2>
 						<div class="doc-date">2026.03.14</div>
@@ -501,6 +538,20 @@ import BaseHead from '../components/BaseHead.astro';
 		</audio>
 
 		<script>
+			// 创建下坠粒子
+			function createFallingParticles() {
+				const container = document.getElementById('fallingParticles');
+				for (let i = 0; i < 50; i++) {
+					const particle = document.createElement('div');
+					particle.className = 'particle';
+					particle.style.left = Math.random() * 100 + '%';
+					particle.style.animationDuration = (Math.random() * 3 + 2) + 's';
+					particle.style.animationDelay = Math.random() * 5 + 's';
+					container.appendChild(particle);
+				}
+			}
+
+			// 音乐控制
 			const music = document.getElementById('bgMusic');
 			const musicControl = document.getElementById('musicControl');
 			const musicIcon = document.getElementById('musicIcon');
@@ -522,6 +573,7 @@ import BaseHead from '../components/BaseHead.astro';
 				isPlaying = !isPlaying;
 			});
 
+			// 设置面板
 			const settingsBtn = document.getElementById('settingsBtn');
 			const settingsPanel = document.getElementById('settingsPanel');
 
@@ -529,6 +581,7 @@ import BaseHead from '../components/BaseHead.astro';
 				settingsPanel.classList.toggle('active');
 			});
 
+			// 透明度控制
 			const opacitySlider = document.getElementById('opacitySlider');
 			const opacityValue = document.getElementById('opacityValue');
 
@@ -538,6 +591,7 @@ import BaseHead from '../components/BaseHead.astro';
 				opacityValue.textContent = e.target.value + '%';
 			});
 
+			// 色调控制
 			const hueSlider = document.getElementById('hueSlider');
 			const hueValue = document.getElementById('hueValue');
 
@@ -545,6 +599,9 @@ import BaseHead from '../components/BaseHead.astro';
 				document.documentElement.style.setProperty('--primary-hue', e.target.value);
 				hueValue.textContent = e.target.value + '°';
 			});
+
+			// 初始化
+			createFallingParticles();
 		</script>
 	</body>
 </html>
