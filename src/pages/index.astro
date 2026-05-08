@@ -5,7 +5,7 @@ import BaseHead from '../components/BaseHead.astro';
 <!doctype html>
 <html lang="zh-CN">
 	<head>
-		<BaseHead title=" 时间的碎片" description="漂浮在记忆与遗忘之间" />
+		<BaseHead title="时间的碎片" description="漂浮在记忆与遗忘之间" />
 		<style>
 			* {
 				margin: 0;
@@ -28,6 +28,9 @@ import BaseHead from '../components/BaseHead.astro';
 				height: 100vh;
 				perspective: 1500px;
 				position: relative;
+                display: flex;
+				align-items: center;
+				text-align: center;
 			}
 
 			/* 星际穿梭Canvas */
@@ -775,7 +778,7 @@ import BaseHead from '../components/BaseHead.astro';
 				updatePosition() {
 					// 基于深度计算实际位置（透视效果）
 					// z越大，粒子离观察者越近，扩散得越远
-					const ringRadius = 20; // 与reset()中保持一致
+					const ringRadius = 10; // 与reset()中保持一致
 
 					// 从圆环中心向外扩散的距离
 					// 使用对角线长度确保覆盖整个屏幕
