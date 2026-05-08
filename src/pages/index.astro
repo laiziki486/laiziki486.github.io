@@ -24,7 +24,7 @@ import BaseHead from '../components/BaseHead.astro';
 				color: #fff;
 				overflow-x: hidden;
 				min-height: 100vh;
-				perspective: 2000px;
+				perspective: 1500px;
 			}
 
 			.overlay {
@@ -53,30 +53,31 @@ import BaseHead from '../components/BaseHead.astro';
 
 			.particle {
 				position: absolute;
-				width: 8px;
-				height: 8px;
-				background: radial-gradient(circle, rgba(135, 206, 250, 0.9), rgba(135, 206, 250, 0.3));
+				width: 12px;
+				height: 12px;
+				background: radial-gradient(circle, rgba(135, 206, 250, 1), rgba(135, 206, 250, 0.4));
 				border-radius: 50%;
-				box-shadow: 0 0 10px rgba(135, 206, 250, 0.8);
+				box-shadow: 0 0 20px rgba(135, 206, 250, 1), 0 0 40px rgba(135, 206, 250, 0.6);
 				animation: fallDeep linear infinite;
 			}
 
 			@keyframes fallDeep {
 				0% {
-					transform: translateY(-50px) translateZ(500px) scale(2);
+					transform: translateY(-100px) translateZ(800px) scale(3);
 					opacity: 0;
+					filter: blur(2px);
+				}
+				10% {
+					opacity: 1;
 					filter: blur(0px);
 				}
-				5% {
-					opacity: 1;
-				}
-				95% {
-					opacity: 0.8;
+				90% {
+					opacity: 0.6;
 				}
 				100% {
-					transform: translateY(100vh) translateZ(-500px) scale(0.2);
+					transform: translateY(120vh) translateZ(-800px) scale(0.1);
 					opacity: 0;
-					filter: blur(5px);
+					filter: blur(8px);
 				}
 			}
 
@@ -174,13 +175,13 @@ import BaseHead from '../components/BaseHead.astro';
 				animation: flicker 4s infinite;
 			}
 
-			/* 3D旋转文档柜 - 俯视10度 */
+			/* 3D旋转文档柜 - 俯视7度 */
 			.carousel-container {
 				width: 100%;
 				height: 550px;
 				position: relative;
 				transform-style: preserve-3d;
-				transform: rotateX(-10deg);
+				transform: rotateX(-7deg);
 			}
 
 			.carousel {
@@ -549,12 +550,12 @@ import BaseHead from '../components/BaseHead.astro';
 			// 创建往背景深处坠落的粒子
 			function createFallingParticles() {
 				const container = document.getElementById('fallingParticles');
-				for (let i = 0; i < 80; i++) {
+				for (let i = 0; i < 100; i++) {
 					const particle = document.createElement('div');
 					particle.className = 'particle';
 					particle.style.left = Math.random() * 100 + '%';
-					particle.style.animationDuration = (Math.random() * 4 + 3) + 's';
-					particle.style.animationDelay = Math.random() * 5 + 's';
+					particle.style.animationDuration = (Math.random() * 5 + 4) + 's';
+					particle.style.animationDelay = Math.random() * 8 + 's';
 					container.appendChild(particle);
 				}
 			}
