@@ -739,7 +739,7 @@ import BaseHead from '../components/BaseHead.astro';
 
 				reset() {
 					// 从圆环位置开始（而不是中心点）
-					const ringRadius = 80; // 圆环半径
+					const ringRadius = 30; // 圆环半径 - 缩小圆环
 					const angle = Math.random() * Math.PI * 2;
 
 					// 圆环上的起始位置
@@ -775,7 +775,7 @@ import BaseHead from '../components/BaseHead.astro';
 				updatePosition() {
 					// 基于深度计算实际位置（透视效果）
 					// z越大，粒子离观察者越近，扩散得越远
-					const ringRadius = 80;
+					const ringRadius = 30; // 与reset()中保持一致
 
 					// 从圆环中心向外扩散的距离
 					// 使用对角线长度确保覆盖整个屏幕
