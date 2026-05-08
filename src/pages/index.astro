@@ -751,13 +751,16 @@ import BaseHead from '../components/BaseHead.astro';
 					// 深度（0-1，0最远，1最近）
 					this.z = 0;
 
-					// 速度（基于深度，近的快，远的慢）
-					this.baseSpeed = 0.5 + Math.random() * 1.5;
+					// 速度（增加速度让粒子动起来）
+					this.speed = 0.003 + Math.random() * 0.005;
+
+					// 初始化位置
+					this.updatePosition();
 				}
 
 				update() {
 					// 深度增加（粒子向前移动）
-					this.z += 0.002 + this.baseSpeed * 0.001;
+					this.z += this.speed;
 
 					// 当粒子到达最前方时重置
 					if (this.z >= 1) {
@@ -765,6 +768,10 @@ import BaseHead from '../components/BaseHead.astro';
 						return;
 					}
 
+					this.updatePosition();
+				}
+
+				updatePosition() {
 					// 基于深度计算实际位置（透视效果）
 					// z越大，粒子离观察者越近，扩散得越远
 					const scale = this.z;
@@ -830,6 +837,7 @@ import BaseHead from '../components/BaseHead.astro';
 				const particle = new Particle();
 				// 让粒子在不同深度初始化，形成连续的流
 				particle.z = Math.random();
+				particle.updatePosition(); // 确保初始位置正确
 				particles.push(particle);
 			}
 
