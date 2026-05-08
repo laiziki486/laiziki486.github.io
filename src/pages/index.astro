@@ -40,27 +40,27 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
 			<h2>📚 如何添加功能</h2>
 			<h3>添加背景图片：</h3>
-			<pre><code>/* 在任何 .astro 文件的 &lt;style&gt; 标签中 */
+			<pre><code>{`/* 在任何 .astro 文件的 <style> 标签中 */
 .hero {
   background-image: url('/your-image.jpg');
   background-size: cover;
   background-position: center;
-}</code></pre>
+}`}</code></pre>
 
 			<h3>添加音效：</h3>
-			<pre><code>// 在 &lt;script&gt; 标签中
+			<pre><code>{`// 在 <script> 标签中
 const audio = new Audio('/sounds/click.mp3');
-audio.play();</code></pre>
+audio.play();`}</code></pre>
 
 			<h3>添加动画：</h3>
-			<pre><code>/* CSS 动画 */
+			<pre><code>{`/* CSS 动画 */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 .element {
   animation: fadeIn 1s ease-in;
-}</code></pre>
+}`}</code></pre>
 
 			<h2>🛠️ 本地开发</h2>
 			<pre><code>npm run dev          # 启动开发服务器
