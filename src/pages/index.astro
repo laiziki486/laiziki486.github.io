@@ -59,27 +59,23 @@ import BaseHead from '../components/BaseHead.astro';
 			/* 往背景深处坠落的粒子效果 */
 			.falling-particles {
 				position: fixed;
-				top: 0;
-				left: 0;
-				width: 100vw;
-				height: 100vh;
+				top: 50%;
+				left: 50%;
+				width: 0;
+				height: 0;
 				pointer-events: none;
 				z-index: 999;
-				overflow: visible;
 			}
 
 			.particle {
-				position: fixed;
-				left: 50%;
-				top: 50%;
+				position: absolute;
+				left: 0;
+				top: 0;
 				width: 4px;
 				height: 4px;
 				background: rgba(255, 255, 255, 1);
 				border-radius: 50%;
 				box-shadow: 0 0 10px rgba(255, 255, 255, 1);
-				will-change: transform, opacity;
-				margin-left: -2px;
-				margin-top: -2px;
 			}
 
 			/* 星际穿梭效果：硬编码每个粒子的动画 */
