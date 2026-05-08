@@ -24,6 +24,8 @@ import BaseHead from '../components/BaseHead.astro';
 				color: #fff;
 				overflow-x: hidden;
 				min-height: 100vh;
+				max-height: 100vh;
+				height: 100vh;
 				perspective: 1500px;
 				position: relative;
 			}
@@ -59,8 +61,8 @@ import BaseHead from '../components/BaseHead.astro';
 				position: fixed;
 				top: 0;
 				left: 0;
-				width: 100%;
-				height: 100%;
+				width: 100vw;
+				height: 100vh;
 				pointer-events: none;
 				z-index: 1;
 				overflow: visible;
@@ -254,11 +256,14 @@ import BaseHead from '../components/BaseHead.astro';
 				margin: 0 auto;
 				padding: 2rem;
 				min-height: 100vh;
+				max-height: 100vh;
+				height: 100vh;
 				display: flex;
 				flex-direction: column;
 				align-items: center;
 				justify-content: center;
 				background: transparent;
+				overflow: hidden;
 			}
 
 			.header {
@@ -829,16 +834,23 @@ import BaseHead from '../components/BaseHead.astro';
 				console.log('粒子已创建:', container.children.length);
 			}
 
-			// 音乐控制
+			// 音乐控制 - 尝试自动播放
 			const music = document.getElementById('bgMusic');
 			const musicControl = document.getElementById('musicControl');
 			const musicIcon = document.getElementById('musicIcon');
-			let isPlaying = true;
+			let isPlaying = false;
 
-			music.play().catch(() => {
-				isPlaying = false;
-				musicIcon.textContent = '🎵';
-			});
+			// 尝试自动播放
+			const playPromise = music.play();
+			if (playPromise !== undefined) {
+				playPromise.then(() => {
+					isPlaying = true;
+					musicIcon.textContent = '🎶';
+				}).catch(() => {
+					isPlaying = false;
+					musicIcon.textContent = '🎵';
+				});
+			}
 
 			musicControl.addEventListener('click', (e) => {
 				e.stopPropagation();
@@ -847,9 +859,10 @@ import BaseHead from '../components/BaseHead.astro';
 					musicIcon.textContent = '🎵';
 					isPlaying = false;
 				} else {
-					music.play();
-					musicIcon.textContent = '🎶';
-					isPlaying = true;
+					music.play().then(() => {
+						musicIcon.textContent = '🎶';
+						isPlaying = true;
+					});
 				}
 			});
 
