@@ -6,7 +6,6 @@ import BaseHead from '../components/BaseHead.astro';
 <html lang="zh-CN">
 	<head>
 		<BaseHead title="时间的碎片" description="漂浮在记忆与遗忘之间" />
-		<link rel="icon" type="image/jpeg" href="/avatar.jpg" />
 		<style>
 			* {
 				margin: 0;
@@ -15,7 +14,7 @@ import BaseHead from '../components/BaseHead.astro';
 			}
 
 			:root {
-				--primary-hue: 280;
+				--primary-hue: 209;
 				--opacity: 0.3;
 			}
 
@@ -25,7 +24,7 @@ import BaseHead from '../components/BaseHead.astro';
 				color: #fff;
 				overflow-x: hidden;
 				min-height: 100vh;
-				perspective: 1500px;
+				perspective: 2000px;
 			}
 
 			.overlay {
@@ -42,7 +41,7 @@ import BaseHead from '../components/BaseHead.astro';
 			/* 破碎文字效果 */
 			.glitch-text {
 				position: relative;
-				animation: glitch-skew 3s infinite;
+				display: inline-block;
 			}
 
 			.glitch-text::before,
@@ -58,43 +57,29 @@ import BaseHead from '../components/BaseHead.astro';
 			.glitch-text::before {
 				left: 2px;
 				text-shadow: -2px 0 #ff00de;
-				clip: rect(24px, 550px, 90px, 0);
+				clip: rect(24px, 9999px, 90px, 0);
 				animation: glitch-anim 2s infinite linear alternate-reverse;
 			}
 
 			.glitch-text::after {
 				left: -2px;
 				text-shadow: -2px 0 #00fff9, 2px 2px #ff00de;
-				clip: rect(85px, 550px, 140px, 0);
+				clip: rect(85px, 9999px, 140px, 0);
 				animation: glitch-anim 3s infinite linear alternate-reverse;
 			}
 
 			@keyframes glitch-anim {
-				0% { clip: rect(61px, 9999px, 50px, 0); }
-				10% { clip: rect(91px, 9999px, 28px, 0); }
-				20% { clip: rect(65px, 9999px, 73px, 0); }
-				30% { clip: rect(17px, 9999px, 14px, 0); }
-				40% { clip: rect(53px, 9999px, 96px, 0); }
-				50% { clip: rect(37px, 9999px, 81px, 0); }
-				60% { clip: rect(72px, 9999px, 43px, 0); }
-				70% { clip: rect(26px, 9999px, 58px, 0); }
-				80% { clip: rect(84px, 9999px, 11px, 0); }
-				90% { clip: rect(19px, 9999px, 67px, 0); }
-				100% { clip: rect(45px, 9999px, 32px, 0); }
-			}
-
-			@keyframes glitch-skew {
-				0% { transform: skew(0deg); }
-				10% { transform: skew(-2deg); }
-				20% { transform: skew(1deg); }
-				30% { transform: skew(0deg); }
-				40% { transform: skew(1deg); }
-				50% { transform: skew(-1deg); }
-				60% { transform: skew(0deg); }
-				70% { transform: skew(2deg); }
-				80% { transform: skew(-1deg); }
-				90% { transform: skew(1deg); }
-				100% { transform: skew(0deg); }
+				0% { clip: rect(61px, 9999px, 50px, 0); transform: skew(0.5deg); }
+				10% { clip: rect(91px, 9999px, 28px, 0); transform: skew(-0.3deg); }
+				20% { clip: rect(65px, 9999px, 73px, 0); transform: skew(0.8deg); }
+				30% { clip: rect(17px, 9999px, 14px, 0); transform: skew(-0.5deg); }
+				40% { clip: rect(53px, 9999px, 96px, 0); transform: skew(0.4deg); }
+				50% { clip: rect(37px, 9999px, 81px, 0); transform: skew(-0.6deg); }
+				60% { clip: rect(72px, 9999px, 43px, 0); transform: skew(0.3deg); }
+				70% { clip: rect(26px, 9999px, 58px, 0); transform: skew(-0.4deg); }
+				80% { clip: rect(84px, 9999px, 11px, 0); transform: skew(0.7deg); }
+				90% { clip: rect(19px, 9999px, 67px, 0); transform: skew(-0.2deg); }
+				100% { clip: rect(45px, 9999px, 32px, 0); transform: skew(0.5deg); }
 			}
 
 			.container {
@@ -123,7 +108,7 @@ import BaseHead from '../components/BaseHead.astro';
 				border: 3px solid rgba(255, 255, 255, 0.3);
 				margin-bottom: 1.5rem;
 				animation: float 6s ease-in-out infinite;
-				box-shadow: 0 0 40px rgba(255, 255, 255, 0.4);
+				box-shadow: 0 0 40px rgba(135, 206, 250, 0.5);
 				filter: brightness(1.1);
 			}
 
@@ -132,7 +117,7 @@ import BaseHead from '../components/BaseHead.astro';
 				font-weight: 300;
 				letter-spacing: 0.5rem;
 				margin-bottom: 0.5rem;
-				text-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
+				text-shadow: 0 0 30px rgba(135, 206, 250, 0.6);
 			}
 
 			.site-subtitle {
@@ -143,12 +128,13 @@ import BaseHead from '../components/BaseHead.astro';
 				animation: flicker 4s infinite;
 			}
 
-			/* 3D旋转文档柜 */
+			/* 3D旋转文档柜 - 20度俯视角 */
 			.carousel-container {
 				width: 100%;
-				height: 500px;
+				height: 550px;
 				position: relative;
 				transform-style: preserve-3d;
+				transform: rotateX(20deg);
 			}
 
 			.carousel {
@@ -156,7 +142,7 @@ import BaseHead from '../components/BaseHead.astro';
 				height: 100%;
 				position: absolute;
 				transform-style: preserve-3d;
-				animation: rotate 30s infinite linear;
+				animation: rotate 40s infinite linear;
 			}
 
 			.carousel:hover {
@@ -165,35 +151,69 @@ import BaseHead from '../components/BaseHead.astro';
 
 			.document {
 				position: absolute;
-				width: 300px;
-				height: 400px;
+				width: 320px;
+				height: 420px;
 				left: 50%;
 				top: 50%;
-				margin-left: -150px;
-				margin-top: -200px;
+				margin-left: -160px;
+				margin-top: -210px;
 				background: hsla(var(--primary-hue), 30%, 20%, var(--opacity));
 				backdrop-filter: blur(15px);
-				border: 1px solid rgba(255, 255, 255, 0.2);
+				border: 2px solid rgba(135, 206, 250, 0.3);
 				border-radius: 15px;
 				padding: 2rem;
 				cursor: pointer;
-				transition: all 0.5s ease;
+				transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 				transform-style: preserve-3d;
-				box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+				box-shadow: 0 15px 60px rgba(0, 0, 0, 0.6),
+				            inset 0 0 20px rgba(135, 206, 250, 0.1);
+				/* 破碎边框效果 */
+				clip-path: polygon(
+					0% 2%, 2% 0%, 98% 0%, 100% 3%,
+					100% 97%, 98% 100%, 2% 100%, 0% 98%
+				);
+			}
+
+			.document::before {
+				content: '';
+				position: absolute;
+				top: -2px;
+				left: -2px;
+				right: -2px;
+				bottom: -2px;
+				background: linear-gradient(45deg,
+					transparent 30%,
+					rgba(135, 206, 250, 0.3) 50%,
+					transparent 70%);
+				border-radius: 15px;
+				opacity: 0;
+				transition: opacity 0.6s;
+				pointer-events: none;
+				clip-path: polygon(
+					0% 2%, 2% 0%, 98% 0%, 100% 3%,
+					100% 97%, 98% 100%, 2% 100%, 0% 98%
+				);
 			}
 
 			.document:hover {
-				transform: translateZ(100px) scale(1.1) !important;
+				transform: translateZ(150px) scale(1.15) !important;
 				background: hsla(var(--primary-hue), 40%, 30%, calc(var(--opacity) + 0.2));
-				box-shadow: 0 20px 80px rgba(0, 0, 0, 0.7);
-				z-index: 10;
+				box-shadow: 0 25px 100px rgba(0, 0, 0, 0.8),
+				            0 0 50px rgba(135, 206, 250, 0.5),
+				            inset 0 0 30px rgba(135, 206, 250, 0.2);
+				border-color: rgba(135, 206, 250, 0.6);
+				z-index: 100 !important;
 			}
 
-			.document:nth-child(1) { transform: rotateY(0deg) translateZ(450px); }
-			.document:nth-child(2) { transform: rotateY(72deg) translateZ(450px); }
-			.document:nth-child(3) { transform: rotateY(144deg) translateZ(450px); }
-			.document:nth-child(4) { transform: rotateY(216deg) translateZ(450px); }
-			.document:nth-child(5) { transform: rotateY(288deg) translateZ(450px); }
+			.document:hover::before {
+				opacity: 1;
+			}
+
+			.document:nth-child(1) { transform: rotateY(0deg) translateZ(500px); }
+			.document:nth-child(2) { transform: rotateY(72deg) translateZ(500px); }
+			.document:nth-child(3) { transform: rotateY(144deg) translateZ(500px); }
+			.document:nth-child(4) { transform: rotateY(216deg) translateZ(500px); }
+			.document:nth-child(5) { transform: rotateY(288deg) translateZ(500px); }
 
 			.doc-title {
 				font-size: 1.8rem;
@@ -201,7 +221,12 @@ import BaseHead from '../components/BaseHead.astro';
 				color: #fff;
 				text-decoration: none;
 				display: block;
-				text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+				text-shadow: 0 0 10px rgba(135, 206, 250, 0.5);
+				transition: all 0.3s;
+			}
+
+			.document:hover .doc-title {
+				text-shadow: 0 0 20px rgba(135, 206, 250, 0.8);
 			}
 
 			.doc-date {
@@ -209,53 +234,102 @@ import BaseHead from '../components/BaseHead.astro';
 				opacity: 0.6;
 				margin-bottom: 1.5rem;
 				letter-spacing: 0.1rem;
+				color: rgba(200, 200, 200, 0.8);
 			}
 
 			.doc-excerpt {
 				line-height: 1.8;
-				opacity: 0.85;
+				opacity: 0.75;
 				font-size: 0.95rem;
+				color: rgba(200, 200, 200, 0.9);
 			}
 
-			/* 设置按钮 */
-			.settings-btn {
+			/* 精致的控制按钮 */
+			.control-btn {
 				position: fixed;
-				bottom: 2rem;
-				right: 2rem;
-				width: 60px;
-				height: 60px;
-				background: hsla(var(--primary-hue), 50%, 50%, 0.4);
-				backdrop-filter: blur(10px);
-				border: 1px solid rgba(255, 255, 255, 0.3);
+				width: 70px;
+				height: 70px;
+				background: linear-gradient(135deg,
+					hsla(var(--primary-hue), 60%, 40%, 0.4),
+					hsla(var(--primary-hue), 60%, 30%, 0.6));
+				backdrop-filter: blur(15px);
+				border: 2px solid rgba(135, 206, 250, 0.4);
 				border-radius: 50%;
 				cursor: pointer;
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				font-size: 1.5rem;
-				transition: all 0.3s;
+				font-size: 1.8rem;
+				transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 				z-index: 1000;
-				animation: pulse 2s infinite;
+				box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+				            inset 0 0 20px rgba(135, 206, 250, 0.1);
 			}
 
-			.settings-btn:hover {
-				transform: scale(1.1) rotate(90deg);
-				background: hsla(var(--primary-hue), 50%, 50%, 0.6);
+			.control-btn::before {
+				content: '';
+				position: absolute;
+				inset: -2px;
+				border-radius: 50%;
+				padding: 2px;
+				background: linear-gradient(45deg,
+					transparent,
+					rgba(135, 206, 250, 0.5),
+					transparent);
+				-webkit-mask: linear-gradient(#fff 0 0) content-box,
+				              linear-gradient(#fff 0 0);
+				-webkit-mask-composite: xor;
+				mask-composite: exclude;
+				opacity: 0;
+				transition: opacity 0.4s;
+			}
+
+			.control-btn:hover {
+				transform: scale(1.15);
+				background: linear-gradient(135deg,
+					hsla(var(--primary-hue), 70%, 50%, 0.6),
+					hsla(var(--primary-hue), 70%, 40%, 0.8));
+				box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6),
+				            0 0 40px rgba(135, 206, 250, 0.4),
+				            inset 0 0 30px rgba(135, 206, 250, 0.2);
+				border-color: rgba(135, 206, 250, 0.8);
+			}
+
+			.control-btn:hover::before {
+				opacity: 1;
+			}
+
+			.control-btn:active {
+				transform: scale(1.05);
+			}
+
+			.music-control {
+				bottom: 2rem;
+				left: 2rem;
+			}
+
+			.settings-btn {
+				bottom: 2rem;
+				right: 2rem;
 			}
 
 			.settings-panel {
 				position: fixed;
-				bottom: 5rem;
+				bottom: 5.5rem;
 				right: 2rem;
-				width: 300px;
-				background: hsla(var(--primary-hue), 30%, 20%, 0.95);
-				backdrop-filter: blur(20px);
-				border: 1px solid rgba(255, 255, 255, 0.3);
-				border-radius: 15px;
-				padding: 1.5rem;
+				width: 320px;
+				background: linear-gradient(135deg,
+					hsla(var(--primary-hue), 30%, 20%, 0.95),
+					hsla(var(--primary-hue), 30%, 15%, 0.98));
+				backdrop-filter: blur(25px);
+				border: 2px solid rgba(135, 206, 250, 0.3);
+				border-radius: 20px;
+				padding: 2rem;
 				display: none;
 				z-index: 999;
-				animation: slideInUp 0.3s ease-out;
+				animation: slideInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+				box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6),
+				            inset 0 0 30px rgba(135, 206, 250, 0.05);
 			}
 
 			.settings-panel.active {
@@ -263,57 +337,51 @@ import BaseHead from '../components/BaseHead.astro';
 			}
 
 			.setting-item {
-				margin-bottom: 1.5rem;
+				margin-bottom: 2rem;
+			}
+
+			.setting-item:last-child {
+				margin-bottom: 0;
 			}
 
 			.setting-label {
 				display: block;
-				margin-bottom: 0.5rem;
-				font-size: 0.9rem;
+				margin-bottom: 0.8rem;
+				font-size: 0.95rem;
 				opacity: 0.9;
+				letter-spacing: 0.05rem;
 			}
 
 			.slider {
 				width: 100%;
-				height: 6px;
-				border-radius: 3px;
-				background: rgba(255, 255, 255, 0.2);
+				height: 8px;
+				border-radius: 4px;
+				background: linear-gradient(90deg,
+					rgba(135, 206, 250, 0.2),
+					rgba(135, 206, 250, 0.4));
 				outline: none;
 				-webkit-appearance: none;
+				position: relative;
 			}
 
 			.slider::-webkit-slider-thumb {
 				-webkit-appearance: none;
-				width: 16px;
-				height: 16px;
+				width: 20px;
+				height: 20px;
 				border-radius: 50%;
-				background: hsl(var(--primary-hue), 70%, 70%);
+				background: linear-gradient(135deg,
+					hsl(var(--primary-hue), 80%, 60%),
+					hsl(var(--primary-hue), 80%, 50%));
 				cursor: pointer;
-			}
-
-			.music-control {
-				position: fixed;
-				bottom: 2rem;
-				left: 2rem;
-				width: 60px;
-				height: 60px;
-				background: hsla(var(--primary-hue), 50%, 50%, 0.4);
-				backdrop-filter: blur(10px);
-				border: 1px solid rgba(255, 255, 255, 0.3);
-				border-radius: 50%;
-				cursor: pointer;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				font-size: 1.5rem;
+				box-shadow: 0 4px 12px rgba(135, 206, 250, 0.5),
+				            inset 0 0 8px rgba(255, 255, 255, 0.3);
 				transition: all 0.3s;
-				z-index: 1000;
-				animation: pulse 2s infinite 0.5s;
 			}
 
-			.music-control:hover {
-				transform: scale(1.1);
-				background: hsla(var(--primary-hue), 50%, 50%, 0.6);
+			.slider::-webkit-slider-thumb:hover {
+				transform: scale(1.2);
+				box-shadow: 0 6px 20px rgba(135, 206, 250, 0.7),
+				            inset 0 0 12px rgba(255, 255, 255, 0.4);
 			}
 
 			@keyframes rotate {
@@ -337,11 +405,6 @@ import BaseHead from '../components/BaseHead.astro';
 				50% { transform: translateY(-20px); }
 			}
 
-			@keyframes pulse {
-				0%, 100% { transform: scale(1); }
-				50% { transform: scale(1.05); }
-			}
-
 			@keyframes flicker {
 				0%, 100% { opacity: 0.8; }
 				50% { opacity: 0.5; }
@@ -350,7 +413,7 @@ import BaseHead from '../components/BaseHead.astro';
 			@keyframes slideInUp {
 				from {
 					opacity: 0;
-					transform: translateY(20px);
+					transform: translateY(30px);
 				}
 				to {
 					opacity: 1;
@@ -414,11 +477,11 @@ import BaseHead from '../components/BaseHead.astro';
 			</div>
 		</div>
 
-		<div class="music-control" id="musicControl">
+		<div class="control-btn music-control" id="musicControl">
 			<span id="musicIcon">🎶</span>
 		</div>
 
-		<div class="settings-btn" id="settingsBtn">
+		<div class="control-btn settings-btn" id="settingsBtn">
 			⚙️
 		</div>
 
@@ -428,8 +491,8 @@ import BaseHead from '../components/BaseHead.astro';
 				<input type="range" min="10" max="90" value="30" class="slider" id="opacitySlider" />
 			</div>
 			<div class="setting-item">
-				<label class="setting-label">主题色调: <span id="hueValue">280°</span></label>
-				<input type="range" min="0" max="360" value="280" class="slider" id="hueSlider" />
+				<label class="setting-label">主题色调: <span id="hueValue">209°</span></label>
+				<input type="range" min="0" max="360" value="209" class="slider" id="hueSlider" />
 			</div>
 		</div>
 
@@ -438,15 +501,12 @@ import BaseHead from '../components/BaseHead.astro';
 		</audio>
 
 		<script>
-			// 音乐自动播放（处理浏览器限制）
 			const music = document.getElementById('bgMusic');
 			const musicControl = document.getElementById('musicControl');
 			const musicIcon = document.getElementById('musicIcon');
 			let isPlaying = true;
 
-			// 尝试自动播放
 			music.play().catch(() => {
-				// 如果自动播放被阻止，等待用户交互
 				isPlaying = false;
 				musicIcon.textContent = '🎵';
 			});
@@ -462,7 +522,6 @@ import BaseHead from '../components/BaseHead.astro';
 				isPlaying = !isPlaying;
 			});
 
-			// 设置面板
 			const settingsBtn = document.getElementById('settingsBtn');
 			const settingsPanel = document.getElementById('settingsPanel');
 
@@ -470,7 +529,6 @@ import BaseHead from '../components/BaseHead.astro';
 				settingsPanel.classList.toggle('active');
 			});
 
-			// 透明度控制
 			const opacitySlider = document.getElementById('opacitySlider');
 			const opacityValue = document.getElementById('opacityValue');
 
@@ -480,7 +538,6 @@ import BaseHead from '../components/BaseHead.astro';
 				opacityValue.textContent = e.target.value + '%';
 			});
 
-			// 色调控制
 			const hueSlider = document.getElementById('hueSlider');
 			const hueValue = document.getElementById('hueValue');
 
