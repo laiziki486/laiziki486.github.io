@@ -749,7 +749,7 @@ import BaseHead from '../components/BaseHead.astro';
 					// 运动方向（从圆环向外辐射）
 					this.angle = angle;
 
-					// 深度（0-1，0最远，1最近）
+					// 深度（0-1，0最远，1最近）- 总是从圆环开始
 					this.z = 0;
 
 					// 速度（增加速度让粒子动起来）
@@ -838,10 +838,8 @@ import BaseHead from '../components/BaseHead.astro';
 
 			for (let i = 0; i < particleCount; i++) {
 				const particle = new Particle();
-				// 让粒子在不同深度初始化，形成连续的流
-				// 使用平方根分布，让更多粒子集中在起点附近
-				particle.z = Math.pow(Math.random(), 2);
-				particle.updatePosition();
+				// 所有粒子都从圆环(z=0)开始，不再随机分布
+				// 这样可以看到清晰的圆环起点
 				particles.push(particle);
 			}
 
