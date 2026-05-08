@@ -38,7 +38,7 @@ import BaseHead from '../components/BaseHead.astro';
 				z-index: 0;
 			}
 
-			/* 下坠粒子效果 */
+			/* 往背景深处坠落的粒子效果 */
 			.falling-particles {
 				position: fixed;
 				top: 0;
@@ -48,31 +48,35 @@ import BaseHead from '../components/BaseHead.astro';
 				pointer-events: none;
 				z-index: 1;
 				overflow: hidden;
+				perspective: 1000px;
 			}
 
 			.particle {
 				position: absolute;
-				width: 2px;
-				height: 2px;
-				background: rgba(135, 206, 250, 0.6);
+				width: 8px;
+				height: 8px;
+				background: radial-gradient(circle, rgba(135, 206, 250, 0.9), rgba(135, 206, 250, 0.3));
 				border-radius: 50%;
-				animation: fall linear infinite;
+				box-shadow: 0 0 10px rgba(135, 206, 250, 0.8);
+				animation: fallDeep linear infinite;
 			}
 
-			@keyframes fall {
+			@keyframes fallDeep {
 				0% {
-					transform: translateY(-10px);
+					transform: translateY(-50px) translateZ(500px) scale(2);
 					opacity: 0;
+					filter: blur(0px);
 				}
-				10% {
+				5% {
 					opacity: 1;
 				}
-				90% {
-					opacity: 1;
+				95% {
+					opacity: 0.8;
 				}
 				100% {
-					transform: translateY(100vh);
+					transform: translateY(100vh) translateZ(-500px) scale(0.2);
 					opacity: 0;
+					filter: blur(5px);
 				}
 			}
 
@@ -137,6 +141,9 @@ import BaseHead from '../components/BaseHead.astro';
 				text-align: center;
 				margin-bottom: 5rem;
 				animation: fadeInDown 1.5s ease-out;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
 			}
 
 			.avatar {
@@ -144,10 +151,11 @@ import BaseHead from '../components/BaseHead.astro';
 				height: 120px;
 				border-radius: 50%;
 				border: 3px solid rgba(255, 255, 255, 0.3);
-				margin-bottom: 1.5rem;
+				margin: 0 auto 1.5rem;
 				animation: float 6s ease-in-out infinite;
 				box-shadow: 0 0 40px rgba(135, 206, 250, 0.5);
 				filter: brightness(1.1);
+				display: block;
 			}
 
 			.site-title {
@@ -166,13 +174,13 @@ import BaseHead from '../components/BaseHead.astro';
 				animation: flicker 4s infinite;
 			}
 
-			/* 3D旋转文档柜 - 10度俯视角 */
+			/* 3D旋转文档柜 - 俯视10度 */
 			.carousel-container {
 				width: 100%;
 				height: 550px;
 				position: relative;
 				transform-style: preserve-3d;
-				transform: rotateX(10deg);
+				transform: rotateX(-10deg);
 			}
 
 			.carousel {
@@ -538,14 +546,14 @@ import BaseHead from '../components/BaseHead.astro';
 		</audio>
 
 		<script>
-			// 创建下坠粒子
+			// 创建往背景深处坠落的粒子
 			function createFallingParticles() {
 				const container = document.getElementById('fallingParticles');
-				for (let i = 0; i < 50; i++) {
+				for (let i = 0; i < 80; i++) {
 					const particle = document.createElement('div');
 					particle.className = 'particle';
 					particle.style.left = Math.random() * 100 + '%';
-					particle.style.animationDuration = (Math.random() * 3 + 2) + 's';
+					particle.style.animationDuration = (Math.random() * 4 + 3) + 's';
 					particle.style.animationDelay = Math.random() * 5 + 's';
 					container.appendChild(particle);
 				}
