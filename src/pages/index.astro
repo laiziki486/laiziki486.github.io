@@ -56,151 +56,6 @@ import BaseHead from '../components/BaseHead.astro';
 				display: none;
 			}
 
-			/* 往背景深处坠落的粒子效果 */
-			.falling-particles {
-				position: fixed;
-				top: 50%;
-				left: 50%;
-				width: 0;
-				height: 0;
-				pointer-events: none;
-				z-index: 999;
-			}
-
-			.particle {
-				position: absolute;
-				left: 0;
-				top: 0;
-				width: 4px;
-				height: 4px;
-				background: rgba(255, 255, 255, 1);
-				border-radius: 50%;
-				box-shadow: 0 0 10px rgba(255, 255, 255, 1);
-			}
-
-			/* 星际穿梭效果：硬编码每个粒子的动画 */
-			@keyframes warp1 {
-				0% { transform: translate(80px, 0px) scale(0.3); opacity: 0.2; filter: blur(3px); }
-				50% { opacity: 1; }
-				100% { transform: translate(3000px, 0px) scale(2); opacity: 0; filter: blur(0px); }
-			}
-			@keyframes warp2 {
-				0% { transform: translate(76px, 25px) scale(0.3); opacity: 0.2; filter: blur(3px); }
-				50% { opacity: 1; }
-				100% { transform: translate(2850px, 950px) scale(2); opacity: 0; filter: blur(0px); }
-			}
-			@keyframes warp3 {
-				0% { transform: translate(65px, 47px) scale(0.3); opacity: 0.2; filter: blur(3px); }
-				50% { opacity: 1; }
-				100% { transform: translate(2450px, 1770px) scale(2); opacity: 0; filter: blur(0px); }
-			}
-			@keyframes warp4 {
-				0% { transform: translate(47px, 65px) scale(0.3); opacity: 0.2; filter: blur(3px); }
-				50% { opacity: 1; }
-				100% { transform: translate(1770px, 2450px) scale(2); opacity: 0; filter: blur(0px); }
-			}
-			@keyframes warp5 {
-				0% { transform: translate(25px, 76px) scale(0.3); opacity: 0.2; filter: blur(3px); }
-				50% { opacity: 1; }
-				100% { transform: translate(950px, 2850px) scale(2); opacity: 0; filter: blur(0px); }
-			}
-			@keyframes warp6 {
-				0% { transform: translate(0px, 80px) scale(0.3); opacity: 0.2; filter: blur(3px); }
-				50% { opacity: 1; }
-				100% { transform: translate(0px, 3000px) scale(2); opacity: 0; filter: blur(0px); }
-			}
-			@keyframes warp7 {
-				0% { transform: translate(-25px, 76px) scale(0.3); opacity: 0.2; filter: blur(3px); }
-				50% { opacity: 1; }
-				100% { transform: translate(-950px, 2850px) scale(2); opacity: 0; filter: blur(0px); }
-			}
-			@keyframes warp8 {
-				0% { transform: translate(-47px, 65px) scale(0.3); opacity: 0.2; filter: blur(3px); }
-				50% { opacity: 1; }
-				100% { transform: translate(-1770px, 2450px) scale(2); opacity: 0; filter: blur(0px); }
-			}
-			@keyframes warp9 {
-				0% { transform: translate(-65px, 47px) scale(0.3); opacity: 0.2; filter: blur(3px); }
-				50% { opacity: 1; }
-				100% { transform: translate(-2450px, 1770px) scale(2); opacity: 0; filter: blur(0px); }
-			}
-			@keyframes warp10 {
-				0% { transform: translate(-76px, 25px) scale(0.3); opacity: 0.2; filter: blur(3px); }
-				50% { opacity: 1; }
-				100% { transform: translate(-2850px, 950px) scale(2); opacity: 0; filter: blur(0px); }
-			}
-			@keyframes warp11 {
-				0% { transform: translate(-80px, 0px) scale(0.3); opacity: 0.2; filter: blur(3px); }
-				50% { opacity: 1; }
-				100% { transform: translate(-3000px, 0px) scale(2); opacity: 0; filter: blur(0px); }
-			}
-			@keyframes warp12 {
-				0% { transform: translate(-76px, -25px) scale(0.3); opacity: 0.2; filter: blur(3px); }
-				50% { opacity: 1; }
-				100% { transform: translate(-2850px, -950px) scale(2); opacity: 0; filter: blur(0px); }
-			}
-			@keyframes warp13 {
-				0% { transform: translate(-65px, -47px) scale(0.3); opacity: 0.2; filter: blur(3px); }
-				50% { opacity: 1; }
-				100% { transform: translate(-2450px, -1770px) scale(2); opacity: 0; filter: blur(0px); }
-			}
-			@keyframes warp14 {
-				0% { transform: translate(-47px, -65px) scale(0.3); opacity: 0.2; filter: blur(3px); }
-				50% { opacity: 1; }
-				100% { transform: translate(-1770px, -2450px) scale(2); opacity: 0; filter: blur(0px); }
-			}
-			@keyframes warp15 {
-				0% { transform: translate(-25px, -76px) scale(0.3); opacity: 0.2; filter: blur(3px); }
-				50% { opacity: 1; }
-				100% { transform: translate(-950px, -2850px) scale(2); opacity: 0; filter: blur(0px); }
-			}
-			@keyframes warp16 {
-				0% { transform: translate(0px, -80px) scale(0.3); opacity: 0.2; filter: blur(3px); }
-				50% { opacity: 1; }
-				100% { transform: translate(0px, -3000px) scale(2); opacity: 0; filter: blur(0px); }
-			}
-			@keyframes warp17 {
-				0% { transform: translate(25px, -76px) scale(0.3); opacity: 0.2; filter: blur(3px); }
-				50% { opacity: 1; }
-				100% { transform: translate(950px, -2850px) scale(2); opacity: 0; filter: blur(0px); }
-			}
-			@keyframes warp18 {
-				0% { transform: translate(47px, -65px) scale(0.3); opacity: 0.2; filter: blur(3px); }
-				50% { opacity: 1; }
-				100% { transform: translate(1770px, -2450px) scale(2); opacity: 0; filter: blur(0px); }
-			}
-			@keyframes warp19 {
-				0% { transform: translate(65px, -47px) scale(0.3); opacity: 0.2; filter: blur(3px); }
-				50% { opacity: 1; }
-				100% { transform: translate(2450px, -1770px) scale(2); opacity: 0; filter: blur(0px); }
-			}
-			@keyframes warp20 {
-				0% { transform: translate(76px, -25px) scale(0.3); opacity: 0.2; filter: blur(3px); }
-				50% { opacity: 1; }
-				100% { transform: translate(2850px, -950px) scale(2); opacity: 0; filter: blur(0px); }
-			}
-
-			.particle-1 { animation: warp1 2s ease-out infinite; }
-			.particle-2 { animation: warp2 2.2s ease-out infinite 0.1s; }
-			.particle-3 { animation: warp3 1.8s ease-out infinite 0.2s; }
-			.particle-4 { animation: warp4 2.5s ease-out infinite 0.3s; }
-			.particle-5 { animation: warp5 2.1s ease-out infinite 0.4s; }
-			.particle-6 { animation: warp6 1.9s ease-out infinite 0.5s; }
-			.particle-7 { animation: warp7 2.3s ease-out infinite 0.6s; }
-			.particle-8 { animation: warp8 2s ease-out infinite 0.7s; }
-			.particle-9 { animation: warp9 2.4s ease-out infinite 0.8s; }
-			.particle-10 { animation: warp10 1.7s ease-out infinite 0.9s; }
-			.particle-11 { animation: warp11 2.2s ease-out infinite 1s; }
-			.particle-12 { animation: warp12 2s ease-out infinite 1.1s; }
-			.particle-13 { animation: warp13 1.9s ease-out infinite 1.2s; }
-			.particle-14 { animation: warp14 2.3s ease-out infinite 1.3s; }
-			.particle-15 { animation: warp15 2.1s ease-out infinite 1.4s; }
-			.particle-16 { animation: warp16 2.4s ease-out infinite 1.5s; }
-			.particle-17 { animation: warp17 1.8s ease-out infinite 1.6s; }
-			.particle-18 { animation: warp18 2.2s ease-out infinite 1.7s; }
-			.particle-19 { animation: warp19 2s ease-out infinite 1.8s; }
-			.particle-20 { animation: warp20 2.5s ease-out infinite 1.9s; }
-
 			/* 破碎文字效果 */
 			.glitch-text {
 				position: relative;
@@ -705,29 +560,6 @@ import BaseHead from '../components/BaseHead.astro';
 	</head>
 	<body>
 		<div class="overlay"></div>
-		<div class="falling-particles" id="fallingParticles">
-			<!-- 星际穿梭粒子 - 硬编码动画 -->
-			<div class="particle particle-1"></div>
-			<div class="particle particle-2"></div>
-			<div class="particle particle-3"></div>
-			<div class="particle particle-4"></div>
-			<div class="particle particle-5"></div>
-			<div class="particle particle-6"></div>
-			<div class="particle particle-7"></div>
-			<div class="particle particle-8"></div>
-			<div class="particle particle-9"></div>
-			<div class="particle particle-10"></div>
-			<div class="particle particle-11"></div>
-			<div class="particle particle-12"></div>
-			<div class="particle particle-13"></div>
-			<div class="particle particle-14"></div>
-			<div class="particle particle-15"></div>
-			<div class="particle particle-16"></div>
-			<div class="particle particle-17"></div>
-			<div class="particle particle-18"></div>
-			<div class="particle particle-19"></div>
-			<div class="particle particle-20"></div>
-		</div>
 
 		<div class="container">
 			<header class="header">
@@ -812,24 +644,6 @@ import BaseHead from '../components/BaseHead.astro';
 		</audio>
 
 		<script>
-			// 创建往背景深处坠落的粒子
-			function createFallingParticles() {
-				const container = document.getElementById('fallingParticles');
-				if (!container) return;
-
-				for (let i = 0; i < 150; i++) {
-					const particle = document.createElement('div');
-					particle.className = 'particle';
-					particle.style.left = Math.random() * 100 + '%';
-					particle.style.top = Math.random() * 100 + '%';
-					particle.style.animationDuration = (Math.random() * 6 + 5) + 's';
-					particle.style.animationDelay = Math.random() * 10 + 's';
-					container.appendChild(particle);
-				}
-
-				console.log('粒子已创建:', container.children.length);
-			}
-
 			// 音乐控制 - 尝试自动播放
 			const music = document.getElementById('bgMusic');
 			const musicControl = document.getElementById('musicControl');
@@ -889,9 +703,6 @@ import BaseHead from '../components/BaseHead.astro';
 				document.documentElement.style.setProperty('--primary-hue', e.target.value);
 				hueValue.textContent = e.target.value + '°';
 			});
-
-			// 初始化
-			createFallingParticles();
 		</script>
 	</body>
 </html>
