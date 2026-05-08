@@ -30,6 +30,17 @@ import BaseHead from '../components/BaseHead.astro';
 				position: relative;
 			}
 
+			/* 星际穿梭Canvas */
+			#starfield {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				z-index: 0;
+				pointer-events: none;
+			}
+
 			/* 背景动态模糊效果 */
 			body::before {
 				content: '';
@@ -559,6 +570,9 @@ import BaseHead from '../components/BaseHead.astro';
 		</style>
 	</head>
 	<body>
+		<!-- 星际穿梭粒子效果 Canvas -->
+		<canvas id="starfield"></canvas>
+
 		<div class="overlay"></div>
 
 		<div class="container">
@@ -703,6 +717,139 @@ import BaseHead from '../components/BaseHead.astro';
 				document.documentElement.style.setProperty('--primary-hue', e.target.value);
 				hueValue.textContent = e.target.value + '°';
 			});
+
+			// 星际穿梭粒子系统
+			const canvas = document.getElementById('starfield');
+			const ctx = canvas.getContext('2d');
+
+			// 设置Canvas尺寸
+			function resizeCanvas() {
+				canvas.width = window.innerWidth;
+				canvas.height = window.innerHeight;
+			}
+			resizeCanvas();
+			window.addEventListener('resize', resizeCanvas);
+
+			// 粒子类
+			class Particle {
+				constructor() {
+					this.reset();
+				}
+
+				reset() {
+					// 从圆环位置开始（而不是中心点）
+					const ringRadius = 80; // 圆环半径
+					const angle = Math.random() * Math.PI * 2;
+
+					// 圆环上的起始位置
+					this.x = canvas.width / 2 + Math.cos(angle) * ringRadius;
+					this.y = canvas.height / 2 + Math.sin(angle) * ringRadius;
+
+					// 运动方向（从圆环向外辐射）
+					this.angle = angle;
+
+					// 深度（0-1，0最远，1最近）
+					this.z = 0;
+
+					// 速度（基于深度，近的快，远的慢）
+					this.baseSpeed = 0.5 + Math.random() * 1.5;
+				}
+
+				update() {
+					// 深度增加（粒子向前移动）
+					this.z += 0.002 + this.baseSpeed * 0.001;
+
+					// 当粒子到达最前方时重置
+					if (this.z >= 1) {
+						this.reset();
+						return;
+					}
+
+					// 基于深度计算实际位置（透视效果）
+					// z越大，粒子离观察者越近，扩散得越远
+					const scale = this.z;
+					const ringRadius = 80;
+
+					// 从圆环中心向外扩散的距离
+					const spreadDistance = scale * Math.min(canvas.width, canvas.height) * 0.8;
+
+					this.currentX = canvas.width / 2 + Math.cos(this.angle) * (ringRadius + spreadDistance);
+					this.currentY = canvas.height / 2 + Math.sin(this.angle) * (ringRadius + spreadDistance);
+				}
+
+				draw() {
+					// 基于深度计算大小（近大远小）
+					const size = this.z * 2.5;
+
+					// 基于深度计算透明度和亮度（近的亮且清晰，远的暗且模糊）
+					const alpha = Math.pow(this.z, 0.5);
+					const brightness = 200 + this.z * 55;
+
+					// 绘制粒子
+					ctx.beginPath();
+
+					// 远的粒子模糊效果（通过多次绘制半透明圆实现）
+					if (this.z < 0.3) {
+						// 远处粒子 - 模糊效果
+						const blurRadius = size * 2;
+						const gradient = ctx.createRadialGradient(
+							this.currentX, this.currentY, 0,
+							this.currentX, this.currentY, blurRadius
+						);
+						gradient.addColorStop(0, `rgba(${brightness}, ${brightness}, ${brightness}, ${alpha * 0.6})`);
+						gradient.addColorStop(1, `rgba(${brightness}, ${brightness}, ${brightness}, 0)`);
+						ctx.fillStyle = gradient;
+						ctx.arc(this.currentX, this.currentY, blurRadius, 0, Math.PI * 2);
+						ctx.fill();
+					} else {
+						// 近处粒子 - 清晰明亮
+						ctx.fillStyle = `rgba(${brightness}, ${brightness}, ${brightness}, ${alpha})`;
+						ctx.arc(this.currentX, this.currentY, size, 0, Math.PI * 2);
+						ctx.fill();
+
+						// 添加光晕效果
+						const glowGradient = ctx.createRadialGradient(
+							this.currentX, this.currentY, 0,
+							this.currentX, this.currentY, size * 3
+						);
+						glowGradient.addColorStop(0, `rgba(255, 255, 255, ${alpha * 0.3})`);
+						glowGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+						ctx.fillStyle = glowGradient;
+						ctx.beginPath();
+						ctx.arc(this.currentX, this.currentY, size * 3, 0, Math.PI * 2);
+						ctx.fill();
+					}
+				}
+			}
+
+			// 创建粒子数组
+			const particles = [];
+			const particleCount = 800; // 粒子数量
+
+			for (let i = 0; i < particleCount; i++) {
+				const particle = new Particle();
+				// 让粒子在不同深度初始化，形成连续的流
+				particle.z = Math.random();
+				particles.push(particle);
+			}
+
+			// 动画循环
+			function animate() {
+				// 使用半透明黑色清除画布，产生拖尾效果
+				ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
+				ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+				// 更新和绘制所有粒子
+				particles.forEach(particle => {
+					particle.update();
+					particle.draw();
+				});
+
+				requestAnimationFrame(animate);
+			}
+
+			// 启动动画
+			animate();
 		</script>
 	</body>
 </html>
