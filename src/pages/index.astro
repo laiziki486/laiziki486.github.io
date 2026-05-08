@@ -60,24 +60,22 @@ import BaseHead from '../components/BaseHead.astro';
 					0 0 20px rgba(180, 230, 255, 1),
 					0 0 40px rgba(120, 200, 255, 0.8),
 					0 0 60px rgba(100, 180, 255, 0.5);
-				animation: fallDeep linear infinite;
+				animation: rushToward 3s linear infinite;
 			}
 
-			@keyframes fallDeep {
+			/* 第一人称坠楼感：粒子从远处小点快速放大靠近 */
+			@keyframes rushToward {
 				0% {
-					transform: scale(6) translateY(-5%);
-					filter: blur(0px);
-					opacity: 0;
+					transform: scale(0.1);
+					filter: blur(2px);
+					opacity: 0.3;
 				}
-				3% {
+				50% {
 					opacity: 1;
 				}
-				97% {
-					opacity: 0.9;
-				}
 				100% {
-					transform: scale(0.02) translateY(105%);
-					filter: blur(20px);
+					transform: scale(15);
+					filter: blur(8px);
 					opacity: 0;
 				}
 			}
