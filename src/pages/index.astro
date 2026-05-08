@@ -42,7 +42,7 @@ import BaseHead from '../components/BaseHead.astro';
 				background: transparent;
 			}
 
-			/* 背景动态模糊效果 */
+			/* 背景动态模糊效果 - 增强速度感 */
 			body::before {
 				content: '';
 				position: fixed;
@@ -51,16 +51,16 @@ import BaseHead from '../components/BaseHead.astro';
 				width: 100%;
 				height: 100%;
 				background: url('/background.jpg') center/cover fixed;
-				animation: bgPulse 4s ease-in-out infinite;
+				animation: bgPulse 2s ease-in-out infinite;
 				z-index: -1;
 			}
 
 			@keyframes bgPulse {
 				0%, 100% {
-					filter: blur(0px);
+					filter: blur(2px);
 				}
 				50% {
-					filter: blur(3px);
+					filter: blur(8px);
 				}
 			}
 
@@ -761,8 +761,8 @@ import BaseHead from '../components/BaseHead.astro';
 					// 深度（0-1，0最远，1最近）- 总是从圆环开始
 					this.z = 0;
 
-					// 速度（增加速度让粒子动起来）
-					this.speed = 0.003 + Math.random() * 0.005;
+					// 速度（大幅提升速度，营造极速翱翔感）
+					this.speed = 0.008 + Math.random() * 0.012;
 
 					// 初始化位置
 					this.updatePosition();
