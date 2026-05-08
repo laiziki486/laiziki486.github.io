@@ -789,11 +789,11 @@ import BaseHead from '../components/BaseHead.astro';
 
 				draw() {
 					// 基于深度计算大小（近大远小）
-					const size = this.z * 2.5;
+					const size = this.z * 3.0;
 
 					// 基于深度计算透明度和亮度（近的亮且清晰，远的暗且模糊）
-					const alpha = Math.pow(this.z, 0.5);
-					const brightness = 200 + this.z * 55;
+					const alpha = Math.pow(this.z, 0.3);
+					const brightness = 230 + this.z * 25;
 
 					// 绘制粒子
 					ctx.beginPath();
@@ -806,7 +806,7 @@ import BaseHead from '../components/BaseHead.astro';
 							this.currentX, this.currentY, 0,
 							this.currentX, this.currentY, blurRadius
 						);
-						gradient.addColorStop(0, `rgba(${brightness}, ${brightness}, ${brightness}, ${alpha * 0.6})`);
+						gradient.addColorStop(0, `rgba(${brightness}, ${brightness}, ${brightness}, ${alpha * 0.8})`);
 						gradient.addColorStop(1, `rgba(${brightness}, ${brightness}, ${brightness}, 0)`);
 						ctx.fillStyle = gradient;
 						ctx.arc(this.currentX, this.currentY, blurRadius, 0, Math.PI * 2);
@@ -822,7 +822,7 @@ import BaseHead from '../components/BaseHead.astro';
 							this.currentX, this.currentY, 0,
 							this.currentX, this.currentY, size * 3
 						);
-						glowGradient.addColorStop(0, `rgba(255, 255, 255, ${alpha * 0.3})`);
+						glowGradient.addColorStop(0, `rgba(255, 255, 255, ${alpha * 0.5})`);
 						glowGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
 						ctx.fillStyle = glowGradient;
 						ctx.beginPath();
