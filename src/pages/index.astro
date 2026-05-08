@@ -22,12 +22,13 @@ import BaseHead from '../components/BaseHead.astro';
 				font-family: 'Georgia', 'Songti SC', serif;
 				background: url('/background.jpg') center/cover fixed;
 				color: #fff;
-				overflow-x: hidden;
-				min-height: 100vh;
-				max-height: 100vh;
+				overflow: hidden;
 				height: 100vh;
+				width: 100vw;
 				perspective: 1500px;
 				position: relative;
+				margin: 0;
+				padding: 0;
 			}
 
 			/* 背景动态模糊效果 */
@@ -255,15 +256,14 @@ import BaseHead from '../components/BaseHead.astro';
 				max-width: 1200px;
 				margin: 0 auto;
 				padding: 2rem;
-				min-height: 100vh;
-				max-height: 100vh;
 				height: 100vh;
+				width: 100%;
 				display: flex;
 				flex-direction: column;
 				align-items: center;
 				justify-content: center;
 				background: transparent;
-				overflow: hidden;
+				overflow: visible;
 			}
 
 			.header {
@@ -306,7 +306,7 @@ import BaseHead from '../components/BaseHead.astro';
 			/* 3D旋转文档柜 - 俯视7度 */
 			.carousel-container {
 				width: 100%;
-				height: 550px;
+				height: 450px;
 				position: relative;
 				transform-style: preserve-3d;
 				transform: rotateX(-7deg);
