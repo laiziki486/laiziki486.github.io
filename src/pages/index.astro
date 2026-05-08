@@ -67,7 +67,7 @@ import BaseHead from '../components/BaseHead.astro';
 			}
 
 			.particle {
-				position: absolute;
+				position: fixed;
 				left: 50%;
 				top: 50%;
 				width: 4px;
@@ -395,10 +395,10 @@ import BaseHead from '../components/BaseHead.astro';
 
 			.doc-date {
 				font-size: 0.9rem;
-				opacity: 0.6;
+				opacity: 0.8;
 				margin-bottom: 1.5rem;
 				letter-spacing: 0.1rem;
-				color: rgba(200, 200, 200, 0.8);
+				color: rgba(255, 255, 255, 0.85);
 			}
 
 			.doc-excerpt {
@@ -519,7 +519,6 @@ import BaseHead from '../components/BaseHead.astro';
 			}
 
 			.radial-item:hover {
-				transform: scale(1.15) !important;
 				background: linear-gradient(135deg,
 					hsla(var(--primary-hue), 70%, 50%, 0.6),
 					hsla(var(--primary-hue), 70%, 40%, 0.8));
@@ -807,7 +806,7 @@ import BaseHead from '../components/BaseHead.astro';
 			</div>
 		</div>
 
-		<audio id="bgMusic" loop>
+		<audio id="bgMusic" loop autoplay>
 			<source src="/music.mp3" type="audio/mpeg" />
 		</audio>
 
@@ -834,10 +833,12 @@ import BaseHead from '../components/BaseHead.astro';
 			const music = document.getElementById('bgMusic');
 			const musicControl = document.getElementById('musicControl');
 			const musicIcon = document.getElementById('musicIcon');
-			let isPlaying = false;
+			let isPlaying = true;
 
-			// 默认不自动播放，等待用户点击
-			musicIcon.textContent = '🎵';
+			music.play().catch(() => {
+				isPlaying = false;
+				musicIcon.textContent = '🎵';
+			});
 
 			musicControl.addEventListener('click', (e) => {
 				e.stopPropagation();
