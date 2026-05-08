@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body { background: black; margin: 0; overflow: hidden; }
+.particle {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 4px;
+	height: 4px;
+	background: white;
+	border-radius: 50%;
+	box-shadow: 0 0 10px white;
+}
+@keyframes test {
+	0% { transform: translate(80px, 0px) scale(0.3); opacity: 0.2; }
+	50% { opacity: 1; }
+	100% { transform: translate(3000px, 0px) scale(2); opacity: 0; }
+}
+.particle-1 { animation: test 2s ease-out infinite; }
+</style>
+</head>
+<body>
+<div class="particle particle-1"></div>
+</body>
+</html>
