@@ -775,14 +775,14 @@ import BaseHead from '../components/BaseHead.astro';
 				updatePosition() {
 					// 基于深度计算实际位置（透视效果）
 					// z越大，粒子离观察者越近，扩散得越远
-					const scale = this.z;
 					const ringRadius = 80;
 
-					// 从圆环中心向外扩散的距离 - 增大扩散范围，确保粒子能到达屏幕边缘
+					// 从圆环中心向外扩散的距离
 					// 使用对角线长度确保覆盖整个屏幕
 					const maxDistance = Math.sqrt(canvas.width * canvas.width + canvas.height * canvas.height) / 2;
-					const spreadDistance = scale * maxDistance * 1.2;
+					const spreadDistance = this.z * maxDistance * 1.2;
 
+					// 当z=0时，粒子在圆环上；当z=1时，粒子在屏幕边缘外
 					this.currentX = canvas.width / 2 + Math.cos(this.angle) * (ringRadius + spreadDistance);
 					this.currentY = canvas.height / 2 + Math.sin(this.angle) * (ringRadius + spreadDistance);
 				}
@@ -839,8 +839,9 @@ import BaseHead from '../components/BaseHead.astro';
 			for (let i = 0; i < particleCount; i++) {
 				const particle = new Particle();
 				// 让粒子在不同深度初始化，形成连续的流
-				particle.z = Math.random();
-				particle.updatePosition(); // 确保初始位置正确
+				// 使用平方根分布，让更多粒子集中在起点附近
+				particle.z = Math.pow(Math.random(), 2);
+				particle.updatePosition();
 				particles.push(particle);
 			}
 
