@@ -52,32 +52,32 @@ import BaseHead from '../components/BaseHead.astro';
 
 			.particle {
 				position: absolute;
-				width: 20px;
-				height: 20px;
-				background: radial-gradient(circle, rgba(150, 220, 255, 1) 0%, rgba(100, 200, 255, 0.6) 50%, transparent 100%);
+				width: 4px;
+				height: 4px;
+				background: radial-gradient(circle, rgba(180, 230, 255, 1) 0%, rgba(120, 200, 255, 0.8) 40%, transparent 100%);
 				border-radius: 50%;
 				box-shadow:
-					0 0 30px rgba(150, 220, 255, 0.9),
-					0 0 60px rgba(100, 200, 255, 0.6),
-					0 0 90px rgba(100, 200, 255, 0.3);
+					0 0 20px rgba(180, 230, 255, 1),
+					0 0 40px rgba(120, 200, 255, 0.8),
+					0 0 60px rgba(100, 180, 255, 0.5);
 				animation: fallDeep linear infinite;
 			}
 
 			@keyframes fallDeep {
 				0% {
-					transform: scale(4) translateY(-10%);
+					transform: scale(6) translateY(-5%);
 					filter: blur(0px);
 					opacity: 0;
 				}
-				5% {
+				3% {
 					opacity: 1;
 				}
-				95% {
-					opacity: 0.8;
+				97% {
+					opacity: 0.9;
 				}
 				100% {
-					transform: scale(0.05) translateY(110%);
-					filter: blur(15px);
+					transform: scale(0.02) translateY(105%);
+					filter: blur(20px);
 					opacity: 0;
 				}
 			}
@@ -470,14 +470,7 @@ import BaseHead from '../components/BaseHead.astro';
 	</head>
 	<body>
 		<div class="overlay"></div>
-		<div class="falling-particles" id="fallingParticles">
-			<!-- 测试粒子 - 直接硬编码 -->
-			<div class="particle" style="left: 10%; top: 10%; animation-duration: 5s; animation-delay: 0s;"></div>
-			<div class="particle" style="left: 30%; top: 20%; animation-duration: 6s; animation-delay: 1s;"></div>
-			<div class="particle" style="left: 50%; top: 30%; animation-duration: 7s; animation-delay: 2s;"></div>
-			<div class="particle" style="left: 70%; top: 40%; animation-duration: 8s; animation-delay: 3s;"></div>
-			<div class="particle" style="left: 90%; top: 50%; animation-duration: 9s; animation-delay: 4s;"></div>
-		</div>
+		<div class="falling-particles" id="fallingParticles"></div>
 
 		<div class="container">
 			<header class="header">
@@ -558,15 +551,19 @@ import BaseHead from '../components/BaseHead.astro';
 			// 创建往背景深处坠落的粒子
 			function createFallingParticles() {
 				const container = document.getElementById('fallingParticles');
-				for (let i = 0; i < 100; i++) {
+				if (!container) return;
+
+				for (let i = 0; i < 150; i++) {
 					const particle = document.createElement('div');
 					particle.className = 'particle';
 					particle.style.left = Math.random() * 100 + '%';
 					particle.style.top = Math.random() * 100 + '%';
-					particle.style.animationDuration = (Math.random() * 5 + 4) + 's';
-					particle.style.animationDelay = Math.random() * 8 + 's';
+					particle.style.animationDuration = (Math.random() * 6 + 5) + 's';
+					particle.style.animationDelay = Math.random() * 10 + 's';
 					container.appendChild(particle);
 				}
+
+				console.log('粒子已创建:', container.children.length);
 			}
 
 			// 音乐控制
