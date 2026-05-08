@@ -25,54 +25,94 @@ import BaseHead from '../components/BaseHead.astro';
 				color: #fff;
 				overflow-x: hidden;
 				min-height: 100vh;
+				perspective: 1500px;
 			}
 
-			/* 全局半透明遮罩 */
 			.overlay {
 				position: fixed;
 				top: 0;
 				left: 0;
 				width: 100%;
 				height: 100%;
-				background: rgba(0, 0, 0, 0.4);
+				background: rgba(0, 0, 0, 0.5);
 				pointer-events: none;
 				z-index: 0;
 			}
 
-			/* 迷幻粒子效果 */
-			.particles {
-				position: fixed;
+			/* 破碎文字效果 */
+			.glitch-text {
+				position: relative;
+				animation: glitch-skew 3s infinite;
+			}
+
+			.glitch-text::before,
+			.glitch-text::after {
+				content: attr(data-text);
+				position: absolute;
 				top: 0;
 				left: 0;
 				width: 100%;
 				height: 100%;
-				pointer-events: none;
-				z-index: 1;
 			}
 
-			.particle {
-				position: absolute;
-				width: 3px;
-				height: 3px;
-				background: rgba(255, 255, 255, 0.6);
-				border-radius: 50%;
-				filter: blur(1px);
-				animation: float-particle linear infinite;
+			.glitch-text::before {
+				left: 2px;
+				text-shadow: -2px 0 #ff00de;
+				clip: rect(24px, 550px, 90px, 0);
+				animation: glitch-anim 2s infinite linear alternate-reverse;
 			}
 
-			/* 主容器 */
+			.glitch-text::after {
+				left: -2px;
+				text-shadow: -2px 0 #00fff9, 2px 2px #ff00de;
+				clip: rect(85px, 550px, 140px, 0);
+				animation: glitch-anim 3s infinite linear alternate-reverse;
+			}
+
+			@keyframes glitch-anim {
+				0% { clip: rect(61px, 9999px, 50px, 0); }
+				10% { clip: rect(91px, 9999px, 28px, 0); }
+				20% { clip: rect(65px, 9999px, 73px, 0); }
+				30% { clip: rect(17px, 9999px, 14px, 0); }
+				40% { clip: rect(53px, 9999px, 96px, 0); }
+				50% { clip: rect(37px, 9999px, 81px, 0); }
+				60% { clip: rect(72px, 9999px, 43px, 0); }
+				70% { clip: rect(26px, 9999px, 58px, 0); }
+				80% { clip: rect(84px, 9999px, 11px, 0); }
+				90% { clip: rect(19px, 9999px, 67px, 0); }
+				100% { clip: rect(45px, 9999px, 32px, 0); }
+			}
+
+			@keyframes glitch-skew {
+				0% { transform: skew(0deg); }
+				10% { transform: skew(-2deg); }
+				20% { transform: skew(1deg); }
+				30% { transform: skew(0deg); }
+				40% { transform: skew(1deg); }
+				50% { transform: skew(-1deg); }
+				60% { transform: skew(0deg); }
+				70% { transform: skew(2deg); }
+				80% { transform: skew(-1deg); }
+				90% { transform: skew(1deg); }
+				100% { transform: skew(0deg); }
+			}
+
 			.container {
 				position: relative;
 				z-index: 2;
-				max-width: 900px;
+				max-width: 1200px;
 				margin: 0 auto;
 				padding: 2rem;
+				min-height: 100vh;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
 			}
 
-			/* 头部 */
 			.header {
 				text-align: center;
-				padding: 3rem 0;
+				margin-bottom: 5rem;
 				animation: fadeInDown 1.5s ease-out;
 			}
 
@@ -82,70 +122,99 @@ import BaseHead from '../components/BaseHead.astro';
 				border-radius: 50%;
 				border: 3px solid rgba(255, 255, 255, 0.3);
 				margin-bottom: 1.5rem;
-				animation: float 6s ease-in-out infinite, glow 3s ease-in-out infinite;
-				box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+				animation: float 6s ease-in-out infinite;
+				box-shadow: 0 0 40px rgba(255, 255, 255, 0.4);
+				filter: brightness(1.1);
 			}
 
 			.site-title {
-				font-size: 2.5rem;
+				font-size: 3rem;
 				font-weight: 300;
-				letter-spacing: 0.3rem;
+				letter-spacing: 0.5rem;
 				margin-bottom: 0.5rem;
-				text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-				animation: glitch 5s infinite;
+				text-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
 			}
 
 			.site-subtitle {
-				font-size: 1rem;
-				opacity: 0.7;
+				font-size: 1.1rem;
+				opacity: 0.8;
 				font-style: italic;
-				letter-spacing: 0.2rem;
+				letter-spacing: 0.3rem;
+				animation: flicker 4s infinite;
 			}
 
-			/* 文章卡片 */
-			.posts {
-				margin-top: 3rem;
+			/* 3D旋转文档柜 */
+			.carousel-container {
+				width: 100%;
+				height: 500px;
+				position: relative;
+				transform-style: preserve-3d;
 			}
 
-			.post-card {
+			.carousel {
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				transform-style: preserve-3d;
+				animation: rotate 30s infinite linear;
+			}
+
+			.carousel:hover {
+				animation-play-state: paused;
+			}
+
+			.document {
+				position: absolute;
+				width: 300px;
+				height: 400px;
+				left: 50%;
+				top: 50%;
+				margin-left: -150px;
+				margin-top: -200px;
 				background: hsla(var(--primary-hue), 30%, 20%, var(--opacity));
-				backdrop-filter: blur(10px);
-				border: 1px solid rgba(255, 255, 255, 0.1);
+				backdrop-filter: blur(15px);
+				border: 1px solid rgba(255, 255, 255, 0.2);
 				border-radius: 15px;
 				padding: 2rem;
-				margin-bottom: 2rem;
+				cursor: pointer;
 				transition: all 0.5s ease;
-				animation: fadeInUp 1s ease-out backwards;
+				transform-style: preserve-3d;
+				box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
 			}
 
-			.post-card:hover {
-				transform: translateY(-5px);
-				box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-				background: hsla(var(--primary-hue), 30%, 25%, calc(var(--opacity) + 0.1));
+			.document:hover {
+				transform: translateZ(100px) scale(1.1) !important;
+				background: hsla(var(--primary-hue), 40%, 30%, calc(var(--opacity) + 0.2));
+				box-shadow: 0 20px 80px rgba(0, 0, 0, 0.7);
+				z-index: 10;
 			}
 
-			.post-title {
-				font-size: 1.5rem;
-				margin-bottom: 0.5rem;
+			.document:nth-child(1) { transform: rotateY(0deg) translateZ(450px); }
+			.document:nth-child(2) { transform: rotateY(72deg) translateZ(450px); }
+			.document:nth-child(3) { transform: rotateY(144deg) translateZ(450px); }
+			.document:nth-child(4) { transform: rotateY(216deg) translateZ(450px); }
+			.document:nth-child(5) { transform: rotateY(288deg) translateZ(450px); }
+
+			.doc-title {
+				font-size: 1.8rem;
+				margin-bottom: 1rem;
 				color: #fff;
 				text-decoration: none;
 				display: block;
-				transition: color 0.3s;
+				text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 			}
 
-			.post-title:hover {
-				color: hsl(var(--primary-hue), 70%, 70%);
-			}
-
-			.post-date {
-				font-size: 0.85rem;
+			.doc-date {
+				font-size: 0.9rem;
 				opacity: 0.6;
-				margin-bottom: 1rem;
+				margin-bottom: 1.5rem;
+				letter-spacing: 0.1rem;
 			}
 
-			.post-excerpt {
+			.doc-excerpt {
 				line-height: 1.8;
 				opacity: 0.85;
+				font-size: 0.95rem;
 			}
 
 			/* 设置按钮 */
@@ -155,9 +224,9 @@ import BaseHead from '../components/BaseHead.astro';
 				right: 2rem;
 				width: 60px;
 				height: 60px;
-				background: hsla(var(--primary-hue), 50%, 50%, 0.3);
+				background: hsla(var(--primary-hue), 50%, 50%, 0.4);
 				backdrop-filter: blur(10px);
-				border: 1px solid rgba(255, 255, 255, 0.2);
+				border: 1px solid rgba(255, 255, 255, 0.3);
 				border-radius: 50%;
 				cursor: pointer;
 				display: flex;
@@ -171,18 +240,17 @@ import BaseHead from '../components/BaseHead.astro';
 
 			.settings-btn:hover {
 				transform: scale(1.1) rotate(90deg);
-				background: hsla(var(--primary-hue), 50%, 50%, 0.5);
+				background: hsla(var(--primary-hue), 50%, 50%, 0.6);
 			}
 
-			/* 设置面板 */
 			.settings-panel {
 				position: fixed;
 				bottom: 5rem;
 				right: 2rem;
 				width: 300px;
-				background: hsla(var(--primary-hue), 30%, 20%, 0.9);
+				background: hsla(var(--primary-hue), 30%, 20%, 0.95);
 				backdrop-filter: blur(20px);
-				border: 1px solid rgba(255, 255, 255, 0.2);
+				border: 1px solid rgba(255, 255, 255, 0.3);
 				border-radius: 15px;
 				padding: 1.5rem;
 				display: none;
@@ -202,7 +270,7 @@ import BaseHead from '../components/BaseHead.astro';
 				display: block;
 				margin-bottom: 0.5rem;
 				font-size: 0.9rem;
-				opacity: 0.8;
+				opacity: 0.9;
 			}
 
 			.slider {
@@ -223,16 +291,15 @@ import BaseHead from '../components/BaseHead.astro';
 				cursor: pointer;
 			}
 
-			/* 音乐控制 */
 			.music-control {
 				position: fixed;
 				bottom: 2rem;
 				left: 2rem;
 				width: 60px;
 				height: 60px;
-				background: hsla(var(--primary-hue), 50%, 50%, 0.3);
+				background: hsla(var(--primary-hue), 50%, 50%, 0.4);
 				backdrop-filter: blur(10px);
-				border: 1px solid rgba(255, 255, 255, 0.2);
+				border: 1px solid rgba(255, 255, 255, 0.3);
 				border-radius: 50%;
 				cursor: pointer;
 				display: flex;
@@ -246,25 +313,18 @@ import BaseHead from '../components/BaseHead.astro';
 
 			.music-control:hover {
 				transform: scale(1.1);
-				background: hsla(var(--primary-hue), 50%, 50%, 0.5);
+				background: hsla(var(--primary-hue), 50%, 50%, 0.6);
 			}
 
-			/* 动画定义 */
+			@keyframes rotate {
+				from { transform: rotateY(0deg); }
+				to { transform: rotateY(360deg); }
+			}
+
 			@keyframes fadeInDown {
 				from {
 					opacity: 0;
-					transform: translateY(-30px);
-				}
-				to {
-					opacity: 1;
-					transform: translateY(0);
-				}
-			}
-
-			@keyframes fadeInUp {
-				from {
-					opacity: 0;
-					transform: translateY(30px);
+					transform: translateY(-50px);
 				}
 				to {
 					opacity: 1;
@@ -273,62 +333,18 @@ import BaseHead from '../components/BaseHead.astro';
 			}
 
 			@keyframes float {
-				0%, 100% {
-					transform: translateY(0px);
-				}
-				50% {
-					transform: translateY(-20px);
-				}
-			}
-
-			@keyframes glow {
-				0%, 100% {
-					box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
-				}
-				50% {
-					box-shadow: 0 0 50px rgba(255, 255, 255, 0.6);
-				}
+				0%, 100% { transform: translateY(0px); }
+				50% { transform: translateY(-20px); }
 			}
 
 			@keyframes pulse {
-				0%, 100% {
-					transform: scale(1);
-				}
-				50% {
-					transform: scale(1.05);
-				}
+				0%, 100% { transform: scale(1); }
+				50% { transform: scale(1.05); }
 			}
 
-			@keyframes glitch {
-				0%, 90%, 100% {
-					transform: translate(0);
-				}
-				92% {
-					transform: translate(-2px, 2px);
-				}
-				94% {
-					transform: translate(2px, -2px);
-				}
-				96% {
-					transform: translate(-2px, -2px);
-				}
-			}
-
-			@keyframes float-particle {
-				from {
-					transform: translateY(100vh) translateX(0);
-					opacity: 0;
-				}
-				10% {
-					opacity: 1;
-				}
-				90% {
-					opacity: 1;
-				}
-				to {
-					transform: translateY(-100px) translateX(100px);
-					opacity: 0;
-				}
+			@keyframes flicker {
+				0%, 100% { opacity: 0.8; }
+				50% { opacity: 0.5; }
 			}
 
 			@keyframes slideInUp {
@@ -345,69 +361,67 @@ import BaseHead from '../components/BaseHead.astro';
 	</head>
 	<body>
 		<div class="overlay"></div>
-		<div class="particles" id="particles"></div>
 
 		<div class="container">
 			<header class="header">
 				<img src="/avatar.jpg" alt="Avatar" class="avatar" />
-				<h1 class="site-title">时间的碎片</h1>
-				<p class="site-subtitle">漂浮在记忆与遗忘之间</p>
+				<h1 class="site-title glitch-text" data-text="时间的碎片">时间的碎片</h1>
+				<p class="site-subtitle glitch-text" data-text="漂浮在记忆与遗忘之间">漂浮在记忆与遗忘之间</p>
 			</header>
 
-			<main class="posts">
-				<article class="post-card" style="animation-delay: 0.2s;">
-					<a href="/blog/fragment-1" class="post-title">玻璃上的裂痕</a>
-					<div class="post-date">2026.03.14</div>
-					<p class="post-excerpt">
-						时钟停在了三点十五分。窗外的雨一直在下，或许从未停过。我看着手心的纹路，像是某种古老的密码，却忘记了如何解读。
-					</p>
-				</article>
+			<div class="carousel-container">
+				<div class="carousel">
+					<a href="/blog/fragment-1" class="document">
+						<h2 class="doc-title glitch-text" data-text="玻璃上的裂痕">玻璃上的裂痕</h2>
+						<div class="doc-date">2026.03.14</div>
+						<p class="doc-excerpt">
+							时钟停在了三点十五分。窗外的雨一直在下。手心的纹路像是某种古老的密码。我盯着看了很久。
+						</p>
+					</a>
 
-				<article class="post-card" style="animation-delay: 0.4s;">
-					<a href="/blog/fragment-2" class="post-title">蓝色的回声</a>
-					<div class="post-date">2026.02.28</div>
-					<p class="post-excerpt">
-						梦里有人在唱歌。醒来时嘴里还残留着旋律的碎片。我试图拼凑，却发现每一个音符都指向不同的方向。
-					</p>
-				</article>
+					<a href="/blog/fragment-2" class="document">
+						<h2 class="doc-title glitch-text" data-text="蓝色的回声">蓝色的回声</h2>
+						<div class="doc-date">2026.02.28</div>
+						<p class="doc-excerpt">
+							梦里有人在唱歌。醒来时嘴里还残留着旋律的碎片。每一个音符都指向不同的方向。
+						</p>
+					</a>
 
-				<article class="post-card" style="animation-delay: 0.6s;">
-					<a href="/blog/fragment-3" class="post-title">漂浮的房间</a>
-					<div class="post-date">2026.01.17</div>
-					<p class="post-excerpt">
-						墙壁开始呼吸。我数着它的节奏，一下，两下，三下。然后忘记了为什么要数。光线从缝隙里渗进来，带着陌生的温度。
-					</p>
-				</article>
+					<a href="/blog/fragment-3" class="document">
+						<h2 class="doc-title glitch-text" data-text="漂浮的房间">漂浮的房间</h2>
+						<div class="doc-date">2026.01.17</div>
+						<p class="doc-excerpt">
+							墙壁开始呼吸。我数着它的节奏。一下，两下，三下。然后忘记了为什么要数。
+						</p>
+					</a>
 
-				<article class="post-card" style="animation-delay: 0.8s;">
-					<a href="/blog/fragment-4" class="post-title">透明的重量</a>
-					<div class="post-date">2025.12.09</div>
-					<p class="post-excerpt">
-						空气有重量吗？我把手伸进虚空，感觉到了什么。或许什么都没有。镜子里的人在笑，但我不记得自己笑过。
-					</p>
-				</article>
+					<a href="/blog/fragment-4" class="document">
+						<h2 class="doc-title glitch-text" data-text="透明的重量">透明的重量</h2>
+						<div class="doc-date">2025.12.09</div>
+						<p class="doc-excerpt">
+							空气有重量吗？我把手伸进虚空。感觉到了什么。或许什么都没有。镜子里的人在笑。
+						</p>
+					</a>
 
-				<article class="post-card" style="animation-delay: 1s;">
-					<a href="/blog/fragment-5" class="post-title">消失的边界</a>
-					<div class="post-date">2025.11.23</div>
-					<p class="post-excerpt">
-						哪里是开始，哪里是结束？我站在两者之间，或许从未离开。花瓣在空中旋转，永远不会落地。
-					</p>
-				</article>
-			</main>
+					<a href="/blog/fragment-5" class="document">
+						<h2 class="doc-title glitch-text" data-text="消失的边界">消失的边界</h2>
+						<div class="doc-date">2025.11.23</div>
+						<p class="doc-excerpt">
+							哪里是开始，哪里是结束？我站在两者之间。花瓣在空中旋转，永远不会落地。
+						</p>
+					</a>
+				</div>
+			</div>
 		</div>
 
-		<!-- 音乐控制 -->
 		<div class="music-control" id="musicControl">
-			<span id="musicIcon">🎵</span>
+			<span id="musicIcon">🎶</span>
 		</div>
 
-		<!-- 设置按钮 -->
 		<div class="settings-btn" id="settingsBtn">
 			⚙️
 		</div>
 
-		<!-- 设置面板 -->
 		<div class="settings-panel" id="settingsPanel">
 			<div class="setting-item">
 				<label class="setting-label">透明度: <span id="opacityValue">30%</span></label>
@@ -419,29 +433,23 @@ import BaseHead from '../components/BaseHead.astro';
 			</div>
 		</div>
 
-		<audio id="bgMusic" loop>
+		<audio id="bgMusic" loop autoplay>
 			<source src="/music.mp3" type="audio/mpeg" />
 		</audio>
 
 		<script>
-			// 创建粒子
-			function createParticles() {
-				const container = document.getElementById('particles');
-				for (let i = 0; i < 30; i++) {
-					const particle = document.createElement('div');
-					particle.className = 'particle';
-					particle.style.left = Math.random() * 100 + '%';
-					particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
-					particle.style.animationDelay = Math.random() * 5 + 's';
-					container.appendChild(particle);
-				}
-			}
-
-			// 音乐控制
+			// 音乐自动播放（处理浏览器限制）
 			const music = document.getElementById('bgMusic');
 			const musicControl = document.getElementById('musicControl');
 			const musicIcon = document.getElementById('musicIcon');
-			let isPlaying = false;
+			let isPlaying = true;
+
+			// 尝试自动播放
+			music.play().catch(() => {
+				// 如果自动播放被阻止，等待用户交互
+				isPlaying = false;
+				musicIcon.textContent = '🎵';
+			});
 
 			musicControl.addEventListener('click', () => {
 				if (isPlaying) {
@@ -480,9 +488,6 @@ import BaseHead from '../components/BaseHead.astro';
 				document.documentElement.style.setProperty('--primary-hue', e.target.value);
 				hueValue.textContent = e.target.value + '°';
 			});
-
-			// 初始化
-			createParticles();
 		</script>
 	</body>
 </html>

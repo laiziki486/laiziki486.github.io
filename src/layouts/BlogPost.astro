@@ -1,86 +1,351 @@
 ---
-import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
-import Header from '../components/Header.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate } = Astro.props;
 ---
 
-<html lang="en">
+<!doctype html>
+<html lang="zh-CN">
 	<head>
 		<BaseHead title={title} description={description} />
+		<link rel="icon" type="image/jpeg" href="/avatar.jpg" />
 		<style>
-			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
+			* {
 				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
 			}
-			.hero-image {
+
+			:root {
+				--primary-hue: 280;
+				--opacity: 0.3;
+			}
+
+			body {
+				font-family: 'Georgia', 'Songti SC', serif;
+				background: url('/background.jpg') center/cover fixed;
+				color: #fff;
+				overflow-x: hidden;
+				min-height: 100vh;
+				line-height: 1.8;
+			}
+
+			.overlay {
+				position: fixed;
+				top: 0;
+				left: 0;
 				width: 100%;
+				height: 100%;
+				background: rgba(0, 0, 0, 0.5);
+				pointer-events: none;
+				z-index: 0;
 			}
-			.hero-image img {
-				display: block;
+
+			.container {
+				position: relative;
+				z-index: 2;
+				max-width: 800px;
 				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
+				padding: 3rem 2rem;
+				min-height: 100vh;
 			}
-			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
+
+			.back-link {
+				display: inline-block;
+				margin-bottom: 2rem;
+				color: rgba(255, 255, 255, 0.7);
+				text-decoration: none;
+				font-size: 1rem;
+				transition: all 0.3s;
+				animation: fadeIn 1s ease-out;
 			}
-			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
+
+			.back-link:hover {
+				color: #fff;
+				transform: translateX(-5px);
+			}
+
+			.article-header {
 				text-align: center;
-				line-height: 1;
+				margin-bottom: 3rem;
+				animation: fadeInDown 1s ease-out;
 			}
-			.title h1 {
-				margin: 0 0 0.5em 0;
+
+			.article-title {
+				font-size: 2.5rem;
+				font-weight: 300;
+				letter-spacing: 0.3rem;
+				margin-bottom: 1rem;
+				text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+				animation: glitch 5s infinite;
 			}
-			.date {
-				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
+
+			.article-date {
+				font-size: 0.9rem;
+				opacity: 0.6;
+				letter-spacing: 0.2rem;
 			}
-			.last-updated-on {
-				font-style: italic;
+
+			.article-content {
+				background: hsla(var(--primary-hue), 30%, 20%, var(--opacity));
+				backdrop-filter: blur(15px);
+				border: 1px solid rgba(255, 255, 255, 0.2);
+				border-radius: 15px;
+				padding: 3rem;
+				animation: fadeInUp 1.2s ease-out;
+				box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+			}
+
+			.article-content :global(p) {
+				margin-bottom: 1.5rem;
+				font-size: 1.1rem;
+				opacity: 0.9;
+				text-align: left;
+			}
+
+			.article-content :global(p:last-child) {
+				margin-bottom: 0;
+			}
+
+			.music-control {
+				position: fixed;
+				bottom: 2rem;
+				left: 2rem;
+				width: 60px;
+				height: 60px;
+				background: hsla(var(--primary-hue), 50%, 50%, 0.4);
+				backdrop-filter: blur(10px);
+				border: 1px solid rgba(255, 255, 255, 0.3);
+				border-radius: 50%;
+				cursor: pointer;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 1.5rem;
+				transition: all 0.3s;
+				z-index: 1000;
+				animation: pulse 2s infinite;
+			}
+
+			.music-control:hover {
+				transform: scale(1.1);
+				background: hsla(var(--primary-hue), 50%, 50%, 0.6);
+			}
+
+			.settings-btn {
+				position: fixed;
+				bottom: 2rem;
+				right: 2rem;
+				width: 60px;
+				height: 60px;
+				background: hsla(var(--primary-hue), 50%, 50%, 0.4);
+				backdrop-filter: blur(10px);
+				border: 1px solid rgba(255, 255, 255, 0.3);
+				border-radius: 50%;
+				cursor: pointer;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 1.5rem;
+				transition: all 0.3s;
+				z-index: 1000;
+				animation: pulse 2s infinite 0.5s;
+			}
+
+			.settings-btn:hover {
+				transform: scale(1.1) rotate(90deg);
+				background: hsla(var(--primary-hue), 50%, 50%, 0.6);
+			}
+
+			.settings-panel {
+				position: fixed;
+				bottom: 5rem;
+				right: 2rem;
+				width: 300px;
+				background: hsla(var(--primary-hue), 30%, 20%, 0.95);
+				backdrop-filter: blur(20px);
+				border: 1px solid rgba(255, 255, 255, 0.3);
+				border-radius: 15px;
+				padding: 1.5rem;
+				display: none;
+				z-index: 999;
+				animation: slideInUp 0.3s ease-out;
+			}
+
+			.settings-panel.active {
+				display: block;
+			}
+
+			.setting-item {
+				margin-bottom: 1.5rem;
+			}
+
+			.setting-label {
+				display: block;
+				margin-bottom: 0.5rem;
+				font-size: 0.9rem;
+				opacity: 0.9;
+			}
+
+			.slider {
+				width: 100%;
+				height: 6px;
+				border-radius: 3px;
+				background: rgba(255, 255, 255, 0.2);
+				outline: none;
+				-webkit-appearance: none;
+			}
+
+			.slider::-webkit-slider-thumb {
+				-webkit-appearance: none;
+				width: 16px;
+				height: 16px;
+				border-radius: 50%;
+				background: hsl(var(--primary-hue), 70%, 70%);
+				cursor: pointer;
+			}
+
+			@keyframes fadeIn {
+				from { opacity: 0; }
+				to { opacity: 1; }
+			}
+
+			@keyframes fadeInDown {
+				from {
+					opacity: 0;
+					transform: translateY(-30px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
+			@keyframes fadeInUp {
+				from {
+					opacity: 0;
+					transform: translateY(30px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
+			@keyframes pulse {
+				0%, 100% { transform: scale(1); }
+				50% { transform: scale(1.05); }
+			}
+
+			@keyframes glitch {
+				0%, 90%, 100% { transform: translate(0); }
+				92% { transform: translate(-2px, 2px); }
+				94% { transform: translate(2px, -2px); }
+				96% { transform: translate(-2px, -2px); }
+			}
+
+			@keyframes slideInUp {
+				from {
+					opacity: 0;
+					transform: translateY(20px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
 			}
 		</style>
 	</head>
-
 	<body>
-		<Header />
-		<main>
-			<article>
-				<div class="hero-image">
-					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
+		<div class="overlay"></div>
+
+		<div class="container">
+			<a href="/" class="back-link">← 返回</a>
+
+			<header class="article-header">
+				<h1 class="article-title">{title}</h1>
+				<div class="article-date">
+					<FormattedDate date={pubDate} />
 				</div>
-				<div class="prose">
-					<div class="title">
-						<div class="date">
-							<FormattedDate date={pubDate} />
-							{
-								updatedDate && (
-									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
-									</div>
-								)
-							}
-						</div>
-						<h1>{title}</h1>
-						<hr />
-					</div>
-					<slot />
-				</div>
+			</header>
+
+			<article class="article-content">
+				<slot />
 			</article>
-		</main>
-		<Footer />
+		</div>
+
+		<div class="music-control" id="musicControl">
+			<span id="musicIcon">🎶</span>
+		</div>
+
+		<div class="settings-btn" id="settingsBtn">
+			⚙️
+		</div>
+
+		<div class="settings-panel" id="settingsPanel">
+			<div class="setting-item">
+				<label class="setting-label">透明度: <span id="opacityValue">30%</span></label>
+				<input type="range" min="10" max="90" value="30" class="slider" id="opacitySlider" />
+			</div>
+			<div class="setting-item">
+				<label class="setting-label">主题色调: <span id="hueValue">280°</span></label>
+				<input type="range" min="0" max="360" value="280" class="slider" id="hueSlider" />
+			</div>
+		</div>
+
+		<audio id="bgMusic" loop autoplay>
+			<source src="/music.mp3" type="audio/mpeg" />
+		</audio>
+
+		<script>
+			const music = document.getElementById('bgMusic');
+			const musicControl = document.getElementById('musicControl');
+			const musicIcon = document.getElementById('musicIcon');
+			let isPlaying = true;
+
+			music.play().catch(() => {
+				isPlaying = false;
+				musicIcon.textContent = '🎵';
+			});
+
+			musicControl.addEventListener('click', () => {
+				if (isPlaying) {
+					music.pause();
+					musicIcon.textContent = '🎵';
+				} else {
+					music.play();
+					musicIcon.textContent = '🎶';
+				}
+				isPlaying = !isPlaying;
+			});
+
+			const settingsBtn = document.getElementById('settingsBtn');
+			const settingsPanel = document.getElementById('settingsPanel');
+
+			settingsBtn.addEventListener('click', () => {
+				settingsPanel.classList.toggle('active');
+			});
+
+			const opacitySlider = document.getElementById('opacitySlider');
+			const opacityValue = document.getElementById('opacityValue');
+
+			opacitySlider.addEventListener('input', (e) => {
+				const value = e.target.value / 100;
+				document.documentElement.style.setProperty('--opacity', value);
+				opacityValue.textContent = e.target.value + '%';
+			});
+
+			const hueSlider = document.getElementById('hueSlider');
+			const hueValue = document.getElementById('hueValue');
+
+			hueSlider.addEventListener('input', (e) => {
+				document.documentElement.style.setProperty('--primary-hue', e.target.value);
+				hueValue.textContent = e.target.value + '°';
+			});
+		</script>
 	</body>
 </html>
