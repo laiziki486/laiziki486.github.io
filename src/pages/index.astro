@@ -78,22 +78,128 @@ import BaseHead from '../components/BaseHead.astro';
 				will-change: transform, opacity;
 			}
 
-			/* 星际穿梭效果：从中心圆形区域向外辐射，远虚近实 */
-			@keyframes warpSpeed {
-				0% {
-					transform: translate(var(--start-x), var(--start-y)) scale(0.3);
-					opacity: 0.2;
-					filter: blur(3px);
-				}
-				50% {
-					opacity: 1;
-				}
-				100% {
-					transform: translate(var(--end-x), var(--end-y)) scale(2);
-					opacity: 0;
-					filter: blur(0px);
-				}
+			/* 星际穿梭效果：硬编码每个粒子的动画 */
+			@keyframes warp1 {
+				0% { transform: translate(80px, 0px) scale(0.3); opacity: 0.2; filter: blur(3px); }
+				50% { opacity: 1; }
+				100% { transform: translate(3000px, 0px) scale(2); opacity: 0; filter: blur(0px); }
 			}
+			@keyframes warp2 {
+				0% { transform: translate(76px, 25px) scale(0.3); opacity: 0.2; filter: blur(3px); }
+				50% { opacity: 1; }
+				100% { transform: translate(2850px, 950px) scale(2); opacity: 0; filter: blur(0px); }
+			}
+			@keyframes warp3 {
+				0% { transform: translate(65px, 47px) scale(0.3); opacity: 0.2; filter: blur(3px); }
+				50% { opacity: 1; }
+				100% { transform: translate(2450px, 1770px) scale(2); opacity: 0; filter: blur(0px); }
+			}
+			@keyframes warp4 {
+				0% { transform: translate(47px, 65px) scale(0.3); opacity: 0.2; filter: blur(3px); }
+				50% { opacity: 1; }
+				100% { transform: translate(1770px, 2450px) scale(2); opacity: 0; filter: blur(0px); }
+			}
+			@keyframes warp5 {
+				0% { transform: translate(25px, 76px) scale(0.3); opacity: 0.2; filter: blur(3px); }
+				50% { opacity: 1; }
+				100% { transform: translate(950px, 2850px) scale(2); opacity: 0; filter: blur(0px); }
+			}
+			@keyframes warp6 {
+				0% { transform: translate(0px, 80px) scale(0.3); opacity: 0.2; filter: blur(3px); }
+				50% { opacity: 1; }
+				100% { transform: translate(0px, 3000px) scale(2); opacity: 0; filter: blur(0px); }
+			}
+			@keyframes warp7 {
+				0% { transform: translate(-25px, 76px) scale(0.3); opacity: 0.2; filter: blur(3px); }
+				50% { opacity: 1; }
+				100% { transform: translate(-950px, 2850px) scale(2); opacity: 0; filter: blur(0px); }
+			}
+			@keyframes warp8 {
+				0% { transform: translate(-47px, 65px) scale(0.3); opacity: 0.2; filter: blur(3px); }
+				50% { opacity: 1; }
+				100% { transform: translate(-1770px, 2450px) scale(2); opacity: 0; filter: blur(0px); }
+			}
+			@keyframes warp9 {
+				0% { transform: translate(-65px, 47px) scale(0.3); opacity: 0.2; filter: blur(3px); }
+				50% { opacity: 1; }
+				100% { transform: translate(-2450px, 1770px) scale(2); opacity: 0; filter: blur(0px); }
+			}
+			@keyframes warp10 {
+				0% { transform: translate(-76px, 25px) scale(0.3); opacity: 0.2; filter: blur(3px); }
+				50% { opacity: 1; }
+				100% { transform: translate(-2850px, 950px) scale(2); opacity: 0; filter: blur(0px); }
+			}
+			@keyframes warp11 {
+				0% { transform: translate(-80px, 0px) scale(0.3); opacity: 0.2; filter: blur(3px); }
+				50% { opacity: 1; }
+				100% { transform: translate(-3000px, 0px) scale(2); opacity: 0; filter: blur(0px); }
+			}
+			@keyframes warp12 {
+				0% { transform: translate(-76px, -25px) scale(0.3); opacity: 0.2; filter: blur(3px); }
+				50% { opacity: 1; }
+				100% { transform: translate(-2850px, -950px) scale(2); opacity: 0; filter: blur(0px); }
+			}
+			@keyframes warp13 {
+				0% { transform: translate(-65px, -47px) scale(0.3); opacity: 0.2; filter: blur(3px); }
+				50% { opacity: 1; }
+				100% { transform: translate(-2450px, -1770px) scale(2); opacity: 0; filter: blur(0px); }
+			}
+			@keyframes warp14 {
+				0% { transform: translate(-47px, -65px) scale(0.3); opacity: 0.2; filter: blur(3px); }
+				50% { opacity: 1; }
+				100% { transform: translate(-1770px, -2450px) scale(2); opacity: 0; filter: blur(0px); }
+			}
+			@keyframes warp15 {
+				0% { transform: translate(-25px, -76px) scale(0.3); opacity: 0.2; filter: blur(3px); }
+				50% { opacity: 1; }
+				100% { transform: translate(-950px, -2850px) scale(2); opacity: 0; filter: blur(0px); }
+			}
+			@keyframes warp16 {
+				0% { transform: translate(0px, -80px) scale(0.3); opacity: 0.2; filter: blur(3px); }
+				50% { opacity: 1; }
+				100% { transform: translate(0px, -3000px) scale(2); opacity: 0; filter: blur(0px); }
+			}
+			@keyframes warp17 {
+				0% { transform: translate(25px, -76px) scale(0.3); opacity: 0.2; filter: blur(3px); }
+				50% { opacity: 1; }
+				100% { transform: translate(950px, -2850px) scale(2); opacity: 0; filter: blur(0px); }
+			}
+			@keyframes warp18 {
+				0% { transform: translate(47px, -65px) scale(0.3); opacity: 0.2; filter: blur(3px); }
+				50% { opacity: 1; }
+				100% { transform: translate(1770px, -2450px) scale(2); opacity: 0; filter: blur(0px); }
+			}
+			@keyframes warp19 {
+				0% { transform: translate(65px, -47px) scale(0.3); opacity: 0.2; filter: blur(3px); }
+				50% { opacity: 1; }
+				100% { transform: translate(2450px, -1770px) scale(2); opacity: 0; filter: blur(0px); }
+			}
+			@keyframes warp20 {
+				0% { transform: translate(76px, -25px) scale(0.3); opacity: 0.2; filter: blur(3px); }
+				50% { opacity: 1; }
+				100% { transform: translate(2850px, -950px) scale(2); opacity: 0; filter: blur(0px); }
+			}
+
+			.particle-1 { animation: warp1 2s ease-out infinite; }
+			.particle-2 { animation: warp2 2.2s ease-out infinite 0.1s; }
+			.particle-3 { animation: warp3 1.8s ease-out infinite 0.2s; }
+			.particle-4 { animation: warp4 2.5s ease-out infinite 0.3s; }
+			.particle-5 { animation: warp5 2.1s ease-out infinite 0.4s; }
+			.particle-6 { animation: warp6 1.9s ease-out infinite 0.5s; }
+			.particle-7 { animation: warp7 2.3s ease-out infinite 0.6s; }
+			.particle-8 { animation: warp8 2s ease-out infinite 0.7s; }
+			.particle-9 { animation: warp9 2.4s ease-out infinite 0.8s; }
+			.particle-10 { animation: warp10 1.7s ease-out infinite 0.9s; }
+			.particle-11 { animation: warp11 2.2s ease-out infinite 1s; }
+			.particle-12 { animation: warp12 2s ease-out infinite 1.1s; }
+			.particle-13 { animation: warp13 1.9s ease-out infinite 1.2s; }
+			.particle-14 { animation: warp14 2.3s ease-out infinite 1.3s; }
+			.particle-15 { animation: warp15 2.1s ease-out infinite 1.4s; }
+			.particle-16 { animation: warp16 2.4s ease-out infinite 1.5s; }
+			.particle-17 { animation: warp17 1.8s ease-out infinite 1.6s; }
+			.particle-18 { animation: warp18 2.2s ease-out infinite 1.7s; }
+			.particle-19 { animation: warp19 2s ease-out infinite 1.8s; }
+			.particle-20 { animation: warp20 2.5s ease-out infinite 1.9s; }
 
 			/* 破碎文字效果 */
 			.glitch-text {
@@ -295,9 +401,9 @@ import BaseHead from '../components/BaseHead.astro';
 
 			.doc-excerpt {
 				line-height: 1.8;
-				opacity: 0.75;
+				opacity: 0.8;
 				font-size: 0.95rem;
-				color: rgba(245, 240, 230, 0.95);
+				color: rgba(250, 248, 245, 0.98);
 			}
 
 			/* 精致的控制按钮 */
@@ -525,10 +631,12 @@ import BaseHead from '../components/BaseHead.astro';
 				}
 			}
 
-			@keyframes shatter {
+			/* 头像破碎特效 - 硬编码 */
+			@keyframes avatarShatter {
 				0%, 85%, 100% {
 					clip-path: circle(50% at 50% 50%);
 					filter: brightness(1.1);
+					transform: scale(1);
 				}
 				87% {
 					clip-path: polygon(
@@ -537,6 +645,7 @@ import BaseHead from '../components/BaseHead.astro';
 						2% 35%, 39% 35%
 					);
 					filter: brightness(1.4) contrast(1.2);
+					transform: scale(1.02);
 				}
 				89% {
 					clip-path: polygon(
@@ -545,6 +654,7 @@ import BaseHead from '../components/BaseHead.astro';
 						5% 30%, 35% 30%
 					);
 					filter: brightness(1.6) contrast(1.3);
+					transform: scale(1.03);
 				}
 				91% {
 					clip-path: polygon(
@@ -553,7 +663,20 @@ import BaseHead from '../components/BaseHead.astro';
 						10% 25%, 30% 25%
 					);
 					filter: brightness(1.3) contrast(1.1);
+					transform: scale(1.01);
 				}
+			}
+
+			.avatar {
+				width: 120px;
+				height: 120px;
+				border-radius: 50%;
+				border: 3px solid rgba(255, 255, 255, 0.3);
+				margin: 0 auto 1.5rem;
+				animation: avatarShatter 8s ease-in-out infinite;
+				box-shadow: 0 0 40px rgba(255, 255, 255, 0.5);
+				filter: brightness(1.1);
+				display: block;
 			}
 
 			@keyframes flicker {
@@ -576,27 +699,27 @@ import BaseHead from '../components/BaseHead.astro';
 	<body>
 		<div class="overlay"></div>
 		<div class="falling-particles" id="fallingParticles">
-			<!-- 星际穿梭粒子 - 从中心圆形区域向外辐射到屏幕边缘 -->
-			<div class="particle" style="--start-x: 80px; --start-y: 0px; --end-x: 3000px; --end-y: 0px; animation: warpSpeed 2s ease-out infinite;"></div>
-			<div class="particle" style="--start-x: 76px; --start-y: 25px; --end-x: 2850px; --end-y: 950px; animation: warpSpeed 2.2s ease-out infinite 0.1s;"></div>
-			<div class="particle" style="--start-x: 65px; --start-y: 47px; --end-x: 2450px; --end-y: 1770px; animation: warpSpeed 1.8s ease-out infinite 0.2s;"></div>
-			<div class="particle" style="--start-x: 47px; --start-y: 65px; --end-x: 1770px; --end-y: 2450px; animation: warpSpeed 2.5s ease-out infinite 0.3s;"></div>
-			<div class="particle" style="--start-x: 25px; --start-y: 76px; --end-x: 950px; --end-y: 2850px; animation: warpSpeed 2.1s ease-out infinite 0.4s;"></div>
-			<div class="particle" style="--start-x: 0px; --start-y: 80px; --end-x: 0px; --end-y: 3000px; animation: warpSpeed 1.9s ease-out infinite 0.5s;"></div>
-			<div class="particle" style="--start-x: -25px; --start-y: 76px; --end-x: -950px; --end-y: 2850px; animation: warpSpeed 2.3s ease-out infinite 0.6s;"></div>
-			<div class="particle" style="--start-x: -47px; --start-y: 65px; --end-x: -1770px; --end-y: 2450px; animation: warpSpeed 2s ease-out infinite 0.7s;"></div>
-			<div class="particle" style="--start-x: -65px; --start-y: 47px; --end-x: -2450px; --end-y: 1770px; animation: warpSpeed 2.4s ease-out infinite 0.8s;"></div>
-			<div class="particle" style="--start-x: -76px; --start-y: 25px; --end-x: -2850px; --end-y: 950px; animation: warpSpeed 1.7s ease-out infinite 0.9s;"></div>
-			<div class="particle" style="--start-x: -80px; --start-y: 0px; --end-x: -3000px; --end-y: 0px; animation: warpSpeed 2.2s ease-out infinite 1s;"></div>
-			<div class="particle" style="--start-x: -76px; --start-y: -25px; --end-x: -2850px; --end-y: -950px; animation: warpSpeed 2s ease-out infinite 1.1s;"></div>
-			<div class="particle" style="--start-x: -65px; --start-y: -47px; --end-x: -2450px; --end-y: -1770px; animation: warpSpeed 1.9s ease-out infinite 1.2s;"></div>
-			<div class="particle" style="--start-x: -47px; --start-y: -65px; --end-x: -1770px; --end-y: -2450px; animation: warpSpeed 2.3s ease-out infinite 1.3s;"></div>
-			<div class="particle" style="--start-x: -25px; --start-y: -76px; --end-x: -950px; --end-y: -2850px; animation: warpSpeed 2.1s ease-out infinite 1.4s;"></div>
-			<div class="particle" style="--start-x: 0px; --start-y: -80px; --end-x: 0px; --end-y: -3000px; animation: warpSpeed 2.4s ease-out infinite 1.5s;"></div>
-			<div class="particle" style="--start-x: 25px; --start-y: -76px; --end-x: 950px; --end-y: -2850px; animation: warpSpeed 1.8s ease-out infinite 1.6s;"></div>
-			<div class="particle" style="--start-x: 47px; --start-y: -65px; --end-x: 1770px; --end-y: -2450px; animation: warpSpeed 2.2s ease-out infinite 1.7s;"></div>
-			<div class="particle" style="--start-x: 65px; --start-y: -47px; --end-x: 2450px; --end-y: -1770px; animation: warpSpeed 2s ease-out infinite 1.8s;"></div>
-			<div class="particle" style="--start-x: 76px; --start-y: -25px; --end-x: 2850px; --end-y: -950px; animation: warpSpeed 2.5s ease-out infinite 1.9s;"></div>
+			<!-- 星际穿梭粒子 - 硬编码动画 -->
+			<div class="particle particle-1"></div>
+			<div class="particle particle-2"></div>
+			<div class="particle particle-3"></div>
+			<div class="particle particle-4"></div>
+			<div class="particle particle-5"></div>
+			<div class="particle particle-6"></div>
+			<div class="particle particle-7"></div>
+			<div class="particle particle-8"></div>
+			<div class="particle particle-9"></div>
+			<div class="particle particle-10"></div>
+			<div class="particle particle-11"></div>
+			<div class="particle particle-12"></div>
+			<div class="particle particle-13"></div>
+			<div class="particle particle-14"></div>
+			<div class="particle particle-15"></div>
+			<div class="particle particle-16"></div>
+			<div class="particle particle-17"></div>
+			<div class="particle particle-18"></div>
+			<div class="particle particle-19"></div>
+			<div class="particle particle-20"></div>
 		</div>
 
 		<div class="container">
