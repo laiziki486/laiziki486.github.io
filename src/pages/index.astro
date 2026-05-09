@@ -313,9 +313,7 @@ import BaseHead from '../components/BaseHead.astro';
 				position: fixed;
 				width: 70px;
 				height: 70px;
-				background: linear-gradient(135deg,
-					hsla(var(--primary-hue), 60%, 40%, 0.4),
-					hsla(var(--primary-hue), 60%, 30%, 0.6));
+				background: rgba(255, 255, 255, 0.1);
 				backdrop-filter: blur(15px);
 				border: 2px solid rgba(255, 255, 255, 0.4);
 				border-radius: 50%;
@@ -350,9 +348,7 @@ import BaseHead from '../components/BaseHead.astro';
 
 			.control-btn:hover {
 				transform: scale(1.15);
-				background: linear-gradient(135deg,
-					hsla(var(--primary-hue), 70%, 50%, 0.6),
-					hsla(var(--primary-hue), 70%, 40%, 0.8));
+				background: rgba(255, 255, 255, 0.2);
 				box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6),
 				            0 0 40px rgba(255, 255, 255, 0.4),
 				            inset 0 0 30px rgba(255, 255, 255, 0.2);
@@ -391,11 +387,9 @@ import BaseHead from '../components/BaseHead.astro';
 				position: absolute;
 				width: 60px;
 				height: 60px;
-				background: linear-gradient(135deg,
-					hsla(var(--primary-hue), 60%, 40%, 0.3),
-					hsla(var(--primary-hue), 60%, 30%, 0.5));
+				background: rgba(255, 255, 255, 0.1);
 				backdrop-filter: blur(15px);
-				border: 2px solid rgba(255, 255, 255, 0.3);
+				border: 2px solid rgba(255, 255, 255, 0.4);
 				border-radius: 50%;
 				cursor: pointer;
 				display: flex;
@@ -419,9 +413,7 @@ import BaseHead from '../components/BaseHead.astro';
 			}
 
 			.radial-item:hover {
-				background: linear-gradient(135deg,
-					hsla(var(--primary-hue), 70%, 50%, 0.6),
-					hsla(var(--primary-hue), 70%, 40%, 0.8));
+				background: rgba(255, 255, 255, 0.2);
 				box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6),
 				            0 0 40px rgba(255, 255, 255, 0.4),
 				            inset 0 0 30px rgba(255, 255, 255, 0.2);
@@ -672,12 +664,12 @@ import BaseHead from '../components/BaseHead.astro';
 		<div class="radial-menu">
 			<div class="radial-menu-center">
 				<div class="control-btn" id="mainMenuBtn">
-					☰
 				</div>
 				<div class="radial-item" id="musicControl">
 					<span id="musicIcon">🎶</span>
 				</div>
 				<div class="radial-item" id="settingsBtn">
+					⚙️
 				</div>
 			</div>
 		</div>
