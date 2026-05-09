@@ -386,11 +386,11 @@ import BaseHead from '../components/BaseHead.astro';
 				z-index: 1001;
 			}
 
-			/* 主按钮 - 使用settings.png图标 */
-			.control-btn {
-				position: fixed;
-				width: 70px;
-				height: 70px;
+			/* 径向菜单子按钮 */
+			.radial-item {
+				position: absolute;
+				width: 60px;
+				height: 60px;
 				background: linear-gradient(135deg,
 					hsla(var(--primary-hue), 60%, 40%, 0.3),
 					hsla(var(--primary-hue), 60%, 30%, 0.5));
@@ -401,76 +401,16 @@ import BaseHead from '../components/BaseHead.astro';
 				display: flex;
 				align-items: center;
 				justify-content: center;
+				font-size: 1.5rem;
 				transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-				z-index: 1000;
-				box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+				box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
 				            inset 0 0 20px rgba(255, 255, 255, 0.1);
-			}
-
-			.control-btn::before {
-				content: '';
-				width: 35px;
-				height: 35px;
-				background-image: url('/settings.png');
-				background-size: contain;
-				background-position: center;
-				background-repeat: no-repeat;
-			}
-
-			.control-btn:hover {
-				transform: scale(1.1);
-				background-color: hsla(var(--primary-hue), 70%, 50%, 0.5);
-				box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5),
-				            0 0 40px rgba(255, 255, 255, 0.3),
-				            inset 0 0 30px rgba(255, 255, 255, 0.15);
-				border-color: rgba(255, 255, 255, 0.6);
-			}
-
-			/* 径向菜单子按钮 - 羽毛形态 */
-			.radial-item {
-				position: absolute;
-				width: 60px;
-				height: 60px;
-				background: transparent;
-				cursor: pointer;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 				opacity: 0;
 				pointer-events: none;
+				transform: scale(0);
 				bottom: 5px;
 				right: 5px;
 				z-index: 1002;
-			}
-
-			/* CSS绘制羽毛 */
-			.radial-item::before {
-				content: '';
-				position: absolute;
-				width: 8px;
-				height: 40px;
-				background: linear-gradient(to bottom,
-					rgba(255, 255, 255, 0.9) 0%,
-					rgba(255, 255, 255, 0.7) 50%,
-					rgba(255, 255, 255, 0.5) 100%);
-				border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-				box-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
-				            inset 0 0 5px rgba(255, 255, 255, 0.3);
-			}
-
-			/* 羽毛的羽枝 */
-			.radial-item::after {
-				content: '';
-				position: absolute;
-				width: 20px;
-				height: 30px;
-				background: linear-gradient(90deg,
-					transparent 0%,
-					rgba(255, 255, 255, 0.3) 50%,
-					transparent 100%);
-				border-radius: 0 50% 50% 0;
-				transform: translateX(-5px);
 			}
 
 			.radial-menu:hover .radial-item {
@@ -478,53 +418,36 @@ import BaseHead from '../components/BaseHead.astro';
 				pointer-events: auto;
 			}
 
-			.radial-item:hover::before {
-				box-shadow: 0 0 20px rgba(255, 255, 255, 0.8),
-				            inset 0 0 10px rgba(255, 255, 255, 0.5);
-				filter: brightness(1.3);
+			.radial-item:hover {
+				background: linear-gradient(135deg,
+					hsla(var(--primary-hue), 70%, 50%, 0.6),
+					hsla(var(--primary-hue), 70%, 40%, 0.8));
+				box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6),
+				            0 0 40px rgba(255, 255, 255, 0.4),
+				            inset 0 0 30px rgba(255, 255, 255, 0.2);
+				border-color: rgba(255, 255, 255, 0.8);
+				z-index: 1003;
 			}
 
-			/* 径向菜单布局 - 羽毛围绕主按钮公转 */
+			/* 径向菜单布局 - 圆环分布 */
 			.radial-item:nth-child(2) {
+				transform: scale(0);
 				transition-delay: 0s;
 			}
 
 			.radial-item:nth-child(3) {
+				transform: scale(0);
 				transition-delay: 0s;
 			}
 
 			.radial-menu:hover .radial-item:nth-child(2) {
-				opacity: 1;
-				pointer-events: auto;
+				transform: translate(-70px, -70px) scale(1);
 				transition-delay: 0.05s;
-				animation: orbitFeather1 8s linear infinite;
 			}
 
 			.radial-menu:hover .radial-item:nth-child(3) {
-				opacity: 1;
-				pointer-events: auto;
+				transform: translate(0px, -90px) scale(1);
 				transition-delay: 0.1s;
-				animation: orbitFeather2 10s linear infinite;
-			}
-
-			/* 第一根羽毛的公转动画 - 左上方向 */
-			@keyframes orbitFeather1 {
-				from {
-					transform: translate(-70px, -70px) rotate(0deg);
-				}
-				to {
-					transform: translate(-70px, -70px) rotate(360deg);
-				}
-			}
-
-			/* 第二根羽毛的公转动画 - 正上方向 */
-			@keyframes orbitFeather2 {
-				from {
-					transform: translate(0px, -90px) rotate(0deg);
-				}
-				to {
-					transform: translate(0px, -90px) rotate(360deg);
-				}
 			}
 
 			.settings-panel {
@@ -748,9 +671,14 @@ import BaseHead from '../components/BaseHead.astro';
 		<!-- 径向菜单 -->
 		<div class="radial-menu">
 			<div class="radial-menu-center">
-				<div class="control-btn" id="mainMenuBtn"></div>
-				<div class="radial-item" id="musicControl"></div>
-				<div class="radial-item" id="settingsBtn"></div>
+				<div class="control-btn" id="mainMenuBtn">
+					☰
+				</div>
+				<div class="radial-item" id="musicControl">
+					<span id="musicIcon">🎶</span>
+				</div>
+				<div class="radial-item" id="settingsBtn">
+				</div>
 			</div>
 		</div>
 
@@ -773,6 +701,7 @@ import BaseHead from '../components/BaseHead.astro';
 			// 音乐控制 - 尝试自动播放
 			const music = document.getElementById('bgMusic');
 			const musicControl = document.getElementById('musicControl');
+			const musicIcon = document.getElementById('musicIcon');
 			let isPlaying = false;
 
 			// 尝试自动播放
@@ -780,8 +709,10 @@ import BaseHead from '../components/BaseHead.astro';
 			if (playPromise !== undefined) {
 				playPromise.then(() => {
 					isPlaying = true;
+					musicIcon.textContent = '🎶';
 				}).catch(() => {
 					isPlaying = false;
+					musicIcon.textContent = '🎵';
 				});
 			}
 
@@ -789,9 +720,11 @@ import BaseHead from '../components/BaseHead.astro';
 				e.stopPropagation();
 				if (isPlaying) {
 					music.pause();
+					musicIcon.textContent = '🎵';
 					isPlaying = false;
 				} else {
 					music.play().then(() => {
+						musicIcon.textContent = '🎶';
 						isPlaying = true;
 					});
 				}
