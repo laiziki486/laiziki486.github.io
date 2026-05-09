@@ -13,7 +13,6 @@
 
 		body {
 			font-family: 'Georgia', 'Songti SC', 'SimSun', serif;
-			background: url('/mothers-day-bg.jpg') center/cover fixed;
 			min-height: 100vh;
 			display: flex;
 			align-items: center;
@@ -22,8 +21,37 @@
 			position: relative;
 		}
 
-		/* 半透明遮罩提升文字可读性 */
+		/* 水波粼粼的背景 */
 		body::before {
+			content: '';
+			position: fixed;
+			top: -5%;
+			left: -5%;
+			width: 110%;
+			height: 110%;
+			background: url('/mothers-day-bg.jpg') center/cover;
+			z-index: 0;
+			animation: waterRipple 8s ease-in-out infinite;
+		}
+
+		/* 水波动画 - 缓慢的缩放和位移 */
+		@keyframes waterRipple {
+			0%, 100% {
+				transform: scale(1) translate(0, 0);
+			}
+			25% {
+				transform: scale(1.02) translate(1%, 0.5%);
+			}
+			50% {
+				transform: scale(1.01) translate(-0.5%, 1%);
+			}
+			75% {
+				transform: scale(1.02) translate(0.5%, -0.5%);
+			}
+		}
+
+		/* 半透明遮罩提升文字可读性 */
+		body::after {
 			content: '';
 			position: fixed;
 			top: 0;
@@ -65,19 +93,23 @@
 		@keyframes blink {
 			0%, 100% {
 				text-shadow:
+					0 0 5px currentColor,
 					0 0 10px currentColor,
-					0 0 20px currentColor;
+					0 0 15px currentColor;
+				opacity: 0.8;
 			}
 			50% {
 				text-shadow:
-					0 0 30px currentColor,
-					0 0 50px currentColor,
-					0 0 70px currentColor;
+					0 0 20px currentColor,
+					0 0 40px currentColor,
+					0 0 60px currentColor,
+					0 0 80px currentColor;
+				opacity: 1;
 			}
 		}
 
 		.char {
-			animation: blink 1s infinite;
+			animation: blink 0.8s ease-in-out infinite;
 		}
 
 		/* 为不同的字符添加不同的动画延迟，让闪烁不同步 */
