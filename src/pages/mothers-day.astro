@@ -34,7 +34,7 @@
 			animation: waterRipple 6s ease-in-out infinite;
 		}
 
-		/* 半透明遮罩提升文字可读性 */
+		/* 轻微遮罩提升文字可读性 */
 		body::after {
 			content: '';
 			position: fixed;
@@ -42,7 +42,7 @@
 			left: 0;
 			width: 100%;
 			height: 100%;
-			background: rgba(0, 0, 0, 0.3);
+			background: rgba(0, 0, 0, 0.1);
 			z-index: -1;
 		}
 
@@ -50,25 +50,25 @@
 		@keyframes waterRipple {
 			0%, 100% {
 				transform: scale(1) translate(0, 0);
-				filter: brightness(1);
+				filter: brightness(1.1);
 			}
 			25% {
 				transform: scale(1.02) translate(-1%, 0.5%);
-				filter: brightness(1.05);
+				filter: brightness(1.15);
 			}
 			50% {
 				transform: scale(1.01) translate(0.5%, -0.5%);
-				filter: brightness(1.02);
+				filter: brightness(1.12);
 			}
 			75% {
 				transform: scale(1.02) translate(-0.5%, 1%);
-				filter: brightness(1.05);
+				filter: brightness(1.15);
 			}
 		}
 
 		.container {
 			position: relative;
-			z-index: 10;
+			z-index: 100;
 			text-align: center;
 			padding: 2rem;
 		}
@@ -78,8 +78,6 @@
 			font-weight: bold;
 			margin-bottom: 3rem;
 			line-height: 1.5;
-			position: relative;
-			z-index: 11;
 		}
 
 		.content {
@@ -87,54 +85,12 @@
 			line-height: 2;
 			max-width: 800px;
 			margin: 0 auto;
-			position: relative;
-			z-index: 11;
 		}
 
 		/* 彩色文字 */
 		.char {
 			display: inline-block;
 			font-weight: bold;
-			position: relative;
-			z-index: 12;
-		}
-
-		/* 闪烁动画 - 僵硬的闪烁效果 */
-		@keyframes blink {
-			0%, 100% {
-				text-shadow:
-					0 0 15px currentColor,
-					0 0 25px currentColor,
-					0 0 35px currentColor;
-			}
-			50% {
-				text-shadow:
-					0 0 40px currentColor,
-					0 0 60px currentColor,
-					0 0 80px currentColor,
-					0 0 100px currentColor;
-			}
-		}
-
-		.char {
-			animation: blink 1s infinite;
-		}
-
-		/* 为不同的字符添加不同的动画延迟，让闪烁不同步 */
-		.char:nth-child(2n) {
-			animation-delay: 0.1s;
-		}
-
-		.char:nth-child(3n) {
-			animation-delay: 0.2s;
-		}
-
-		.char:nth-child(4n) {
-			animation-delay: 0.3s;
-		}
-
-		.char:nth-child(5n) {
-			animation-delay: 0.4s;
 		}
 
 		/* 响应式设计 */
@@ -202,6 +158,32 @@
 
 		colorizeText(titleText, titleContainer);
 		colorizeText(contentText, contentContainer);
+
+		// 硬编码闪烁效果 - 使用JavaScript直接操作
+		const allChars = document.querySelectorAll('.char');
+		let blinkState = false;
+
+		setInterval(() => {
+			blinkState = !blinkState;
+
+			allChars.forEach((char, index) => {
+				if (blinkState) {
+					// 闪烁状态 - 强光晕
+					char.style.textShadow = `
+						0 0 20px ${char.style.color},
+						0 0 40px ${char.style.color},
+						0 0 60px ${char.style.color},
+						0 0 80px ${char.style.color}
+					`;
+				} else {
+					// 正常状态 - 弱光晕
+					char.style.textShadow = `
+						0 0 10px ${char.style.color},
+						0 0 20px ${char.style.color}
+					`;
+				}
+			});
+		}, 500); // 每500毫秒切换一次，实现僵硬的闪烁效果
 	</script>
 </body>
 </html>
