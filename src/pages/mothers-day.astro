@@ -30,6 +30,7 @@
 			width: 110%;
 			height: 110%;
 			background: url('/mothers-day-bg.jpg') center/cover;
+			background-position: calc(50% + 15px) center;
 			z-index: -2;
 			animation: waterRipple 6s ease-in-out infinite;
 		}
@@ -168,18 +169,18 @@
 
 			allChars.forEach((char, index) => {
 				if (blinkState) {
-					// 闪烁状态 - 强光晕
+					// 闪烁状态 - 强光晕（减小像素，增加亮度）
 					char.style.textShadow = `
-						0 0 20px ${char.style.color},
-						0 0 40px ${char.style.color},
-						0 0 60px ${char.style.color},
-						0 0 80px ${char.style.color}
+						0 0 5px #fff,
+						0 0 10px #fff,
+						0 0 15px ${char.style.color},
+						0 0 20px ${char.style.color}
 					`;
 				} else {
 					// 正常状态 - 弱光晕
 					char.style.textShadow = `
-						0 0 10px ${char.style.color},
-						0 0 20px ${char.style.color}
+						0 0 3px #fff,
+						0 0 8px ${char.style.color}
 					`;
 				}
 			});
