@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>母亲节快乐</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: 'Georgia', 'Songti SC', 'SimSun', serif;
+			background: url('/mothers-day-bg.jpg') center/cover fixed;
+			min-height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			overflow: hidden;
+			position: relative;
+		}
+
+		/* 半透明遮罩提升文字可读性 */
+		body::before {
+			content: '';
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.3);
+			z-index: 0;
+		}
+
+		.container {
+			position: relative;
+			z-index: 1;
+			text-align: center;
+			padding: 2rem;
+		}
+
+		.title {
+			font-size: 4rem;
+			font-weight: bold;
+			margin-bottom: 3rem;
+			line-height: 1.5;
+		}
+
+		.content {
+			font-size: 2rem;
+			line-height: 2;
+			max-width: 800px;
+			margin: 0 auto;
+		}
+
+		/* 彩色文字 */
+		.char {
+			display: inline-block;
+			font-weight: bold;
+		}
+
+		/* 闪烁动画 - 僵硬的闪烁效果 */
+		@keyframes blink {
+			0%, 100% {
+				text-shadow:
+					0 0 10px currentColor,
+					0 0 20px currentColor;
+			}
+			50% {
+				text-shadow:
+					0 0 30px currentColor,
+					0 0 50px currentColor,
+					0 0 70px currentColor;
+			}
+		}
+
+		.char {
+			animation: blink 1s infinite;
+		}
+
+		/* 为不同的字符添加不同的动画延迟，让闪烁不同步 */
+		.char:nth-child(2n) {
+			animation-delay: 0.1s;
+		}
+
+		.char:nth-child(3n) {
+			animation-delay: 0.2s;
+		}
+
+		.char:nth-child(4n) {
+			animation-delay: 0.3s;
+		}
+
+		.char:nth-child(5n) {
+			animation-delay: 0.4s;
+		}
+
+		/* 响应式设计 */
+		@media (max-width: 768px) {
+			.title {
+				font-size: 2.5rem;
+			}
+			.content {
+				font-size: 1.3rem;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="title" id="title"></div>
+		<div class="content" id="content"></div>
+	</div>
+
+	<script>
+		// 颜色池 - 温暖的粉色、红色、橙色、紫色系
+		const colors = [
+			'#ff69b4', // 热粉色
+			'#ff1493', // 深粉色
+			'#ff6347', // 番茄红
+			'#ff4500', // 橙红色
+			'#ffa500', // 橙色
+			'#ff69b4', // 热粉色
+			'#da70d6', // 兰花紫
+			'#ba55d3', // 中兰花紫
+			'#ff1493', // 深粉色
+			'#ff6347'  // 番茄红
+		];
+
+		// 标题文字
+		const titleText = '亲爱的妈妈\n祝您母亲节快乐！';
+
+		// 正文文字
+		const contentText = '感谢您一直以来的关爱与付出，\n您的温暖是我前行的力量。\n愿您永远健康快乐，笑容常在。\n妈妈，我爱您！';
+
+		// 将文字转换为彩色字符
+		function colorizeText(text, container) {
+			const lines = text.split('\n');
+			let colorIndex = 0;
+
+			lines.forEach((line, lineIndex) => {
+				if (lineIndex > 0) {
+					container.appendChild(document.createElement('br'));
+				}
+
+				for (let char of line) {
+					const span = document.createElement('span');
+					span.className = 'char';
+					span.textContent = char;
+					span.style.color = colors[colorIndex % colors.length];
+					container.appendChild(span);
+					colorIndex++;
+				}
+			});
+		}
+
+		// 初始化页面
+		const titleContainer = document.getElementById('title');
+		const contentContainer = document.getElementById('content');
+
+		colorizeText(titleText, titleContainer);
+		colorizeText(contentText, contentContainer);
+	</script>
+</body>
+</html>
